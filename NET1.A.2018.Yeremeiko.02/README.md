@@ -9,5 +9,7 @@
 Сделана быстрая сортировка, написаны тесты. Начата работа над сортировкой слиянием. 
 
 SortingOptions - логика сортировок.
+
 SortingOptions.Tests - тесты на MSTest.
+
 SortingOptions.NUnitTests - тесты на NUnit.
