@@ -13,7 +13,7 @@ namespace SortingOptions
         /// <param name="array">The array.</param>
         public static void Sort(int[] array)
         {
-            Sort(array, array.GetLowerBound(0), array.Length - 1);
+            Sort(array, 0, array.Length - 1);
         }
 
         /// <summary>

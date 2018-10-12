@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SortingOptions
 {
@@ -17,7 +13,7 @@ namespace SortingOptions
         /// <param name="array">The array.</param>
         public static void Sort(int[] array)
         {
-            Sort(array, array.GetLowerBound(0), array.Length - 1);
+            Sort(array, 0, array.Length - 1);
         }
 
         /// <summary>
@@ -45,15 +41,66 @@ namespace SortingOptions
                 return;
             }
 
-            int middle = left + (right - left >> 1);
+            int middle = (left + right) / 2; //left + (right - (left >> 1));
             Sort(array, left, middle);
             Sort(array, middle + 1, right);
             Merge(array, left, middle, right);
         }
 
+        /// <summary>
+        /// Merges the specified array.
+        /// </summary>
+        /// <param name="array">The array.</param>
+        /// <param name="left">Index of first element.</param>
+        /// <param name="middle">Index of middle element.</param>
+        /// <param name="right">Index of last element.</param>
         private static void Merge(int[] array, int left, int middle, int right)
         {
+            int lengthOfLeft = middle - left + 1;
+            int lengthOfRight = right - middle;
+            int[] leftArray = new int[lengthOfLeft];
+            int[] rightArray = new int[lengthOfRight];
 
+            for (int a = 0; a < lengthOfLeft; a++)
+            {
+                leftArray[a] = array[left + a];
+            }
+            for (int b = 0; b < lengthOfRight; b++)
+            {
+                rightArray[b] = array[middle + b + 1];
+            }
+
+            int i = 0, j = 0, n = left;
+
+            while (i < lengthOfLeft && j < lengthOfRight)
+            {
+                if (leftArray[i] <= rightArray[j])
+                {
+                    array[n] = leftArray[i];
+                    i++;
+                }
+                else
+                {
+                    array[n] = rightArray[j];
+                    j++;
+                }
+
+                n++;
+            }
+
+            while (i < lengthOfLeft)
+            {
+                array[n] = leftArray[i];
+                i++;
+                n++;
+            }
+
+            while (j < lengthOfRight)
+            {
+                array[n] = rightArray[j];
+                j++;
+                n++;
+            }
         }
     }
 }

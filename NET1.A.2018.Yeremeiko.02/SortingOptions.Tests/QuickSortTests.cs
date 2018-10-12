@@ -9,8 +9,8 @@ namespace SortingOptions.Tests
         [TestMethod]
         public void Sort_SortedArray_Success()
         {
-            int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-            int[] sortedArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            int[] sortedArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
             QuickSort.Sort(array);
 
@@ -51,7 +51,7 @@ namespace SortingOptions.Tests
         }
 
         [TestMethod]
-        public void Sort_RandomArrayOfMillionElements_Success()
+        public void Sort_RandomArrayBigAmountOfElements_Success()
         {
             GC.Collect();
             int[] array = new int[100000];
