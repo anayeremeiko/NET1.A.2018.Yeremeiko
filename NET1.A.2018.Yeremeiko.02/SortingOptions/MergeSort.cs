@@ -41,7 +41,7 @@ namespace SortingOptions
                 return;
             }
 
-            int middle = (left + right) / 2; //left + (right - (left >> 1));
+            int middle = (left + right) / 2;
             Sort(array, left, middle);
             Sort(array, middle + 1, right);
             Merge(array, left, middle, right);
