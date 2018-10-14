@@ -16,4 +16,6 @@ SortingOptions.Tests и SortingOptions.NUnitTests - тесты сортиров�
 
 ### What is done
 
-Работа в процессе...
+InsertNumberLogic - логика вставки битов.
+
+InsertNumberLogic.Tests и InsertNumberLogic.NUnitTests - тесты логики вставки битов.
