@@ -18,7 +18,6 @@ namespace InsertNumberLogic.NUnitTests
             return BitManipulation.InsertNumber(destNum, sourceNum, i, j);
         }
 
-        [TestCase(8, 15, 5, 1)]
         [TestCase(8, 15, -1, 0)]
         [TestCase(8, 15, 32, 9)]
         [TestCase(8, 15, 0, -4)]
@@ -26,6 +25,12 @@ namespace InsertNumberLogic.NUnitTests
         public void InsertNumber_ThrowArgumentOutOfRangeException(int destNum, int sourceNum, int i, int j)
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => BitManipulation.InsertNumber(destNum, sourceNum, i, j));
+        }
+
+        [Test]
+        public void InsertNumber_ThrowArgumentException()
+        {
+            Assert.Throws<ArgumentException>(() => BitManipulation.InsertNumber(8, 15, 5, 1));
         }
     }
 }

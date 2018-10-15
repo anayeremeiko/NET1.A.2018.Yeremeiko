@@ -1,4 +1,5 @@
 using System;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace InsertNumberLogic.Tests
@@ -7,9 +8,9 @@ namespace InsertNumberLogic.Tests
     public class BitManipulationTests
     {
         [TestMethod]
-        public void InsertNumber_IBiggerThenJ_ThrowArgumentOutOfRangeException()
+        public void InsertNumber_IBiggerThenJ_ThrowArgumentException()
         {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => BitManipulation.InsertNumber(8, 15, 3, 1));
+            Assert.ThrowsException<ArgumentException>(() => BitManipulation.InsertNumber(8, 15, 3, 1));
         }
 
         [TestMethod]
