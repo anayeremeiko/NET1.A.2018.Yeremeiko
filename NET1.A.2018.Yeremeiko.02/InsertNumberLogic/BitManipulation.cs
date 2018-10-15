@@ -14,8 +14,8 @@ namespace InsertNumberLogic
         /// <param name="sourceNum">The number which bits where taken.</param>
         /// <param name="i">Low boundary of bit sequence.</param>
         /// <param name="j">High boundary of bit sequence.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Boundaries need to be less then 31 and bigger then 0,
-        /// low boundary need to be less then high boundary.</exception>
+        /// <exception cref="ArgumentException">Low boundary need to be less then high boundary.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Boundaries need to be less then 31 and bigger then 0.</exception>
         /// <returns>The number with changed bits</returns>
         public static int InsertNumber(int destNum, int sourceNum, int i, int j)
         {
