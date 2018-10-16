@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindNthRootLogic", "FindNth
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindNthRootLogic.Tests", "FindNthRootLogic.Tests\FindNthRootLogic.Tests.csproj", "{71797353-B4DB-4277-B2AE-E3C2DA6EAFFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindNthRootLogic.NUnitTests", "FindNthRootLogic.NUnitTests\FindNthRootLogic.NUnitTests.csproj", "{81A52751-2B3F-4401-85CE-7CAF56F7A96F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{71797353-B4DB-4277-B2AE-E3C2DA6EAFFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71797353-B4DB-4277-B2AE-E3C2DA6EAFFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71797353-B4DB-4277-B2AE-E3C2DA6EAFFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81A52751-2B3F-4401-85CE-7CAF56F7A96F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81A52751-2B3F-4401-85CE-7CAF56F7A96F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81A52751-2B3F-4401-85CE-7CAF56F7A96F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81A52751-2B3F-4401-85CE-7CAF56F7A96F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
