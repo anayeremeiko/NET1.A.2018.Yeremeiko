@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestCases>
+  <TestCase>
+    <Number>-0.01</Number>
+    <Root>2</Root>
+    <Accurancy>0.0001</Accurancy>
+  </TestCase>
+  <TestCase>
+    <Number>0.001</Number>
+    <Root>-2</Root>
+    <Accurancy>0.0001</Accurancy>
+  </TestCase>
+  <TestCase>
+    <Number>0.01</Number>
+    <Root>2</Root>
+    <Accurancy>-1</Accurancy>
+  </TestCase>
+</TestCases>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestCases>
+  <TestCase>
+    <Number>1</Number>
+    <Root>5</Root>
+    <Accurancy>0.0001</Accurancy>
+    <ExpectedResult>1</ExpectedResult>
+  </TestCase>
+  <TestCase>
+    <Number>8</Number>
+    <Root>3</Root>
+    <Accurancy>0.0001</Accurancy>
+    <ExpectedResult>2</ExpectedResult>
+  </TestCase>
+  <TestCase>
+    <Number>0.001</Number>
+    <Root>3</Root>
+    <Accurancy>0.0001</Accurancy>
+    <ExpectedResult>0.1</ExpectedResult>
+  </TestCase>
+  <TestCase>
+    <Number>0.0279936</Number>
+    <Root>7</Root>
+    <Accurancy>0.0001</Accurancy>
+    <ExpectedResult>0.6</ExpectedResult>
+  </TestCase>
+  <TestCase>
+    <Number>0.0081</Number>
+    <Root>4</Root>
+    <Accurancy>0.1</Accurancy>
+    <ExpectedResult>0.3</ExpectedResult>
+  </TestCase>
+  <TestCase>
+    <Number>-0.008</Number>
+    <Root>3</Root>
+    <Accurancy>0.1</Accurancy>
+    <ExpectedResult>-0.2</ExpectedResult>
+  </TestCase>
+  <TestCase>
+    <Number>0.004241979</Number>
+    <Root>9</Root>
+    <Accurancy>0.00000001</Accurancy>
+    <ExpectedResult>0.545</ExpectedResult>
+  </TestCase>
+</TestCases>
