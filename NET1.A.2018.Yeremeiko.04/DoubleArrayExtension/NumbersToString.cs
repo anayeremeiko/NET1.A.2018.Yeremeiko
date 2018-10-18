@@ -32,6 +32,11 @@ namespace DoubleArrayExtension
             return stringArray;
         }
 
+        /// <summary>
+        /// Converts double in string format to words.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <returns>Number in words.</returns>
         private static string ConvertToString(string number)
         {
             StringBuilder stringNumber = new StringBuilder();
