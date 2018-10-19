@@ -14,7 +14,7 @@ DoubleArrayExtension - логика алгоритма.
 
 ### What is done
 
-...
+DoubleExtension - логика алгоритма.
 
 ## TASK 3
 
