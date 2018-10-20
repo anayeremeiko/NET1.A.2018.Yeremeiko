@@ -73,8 +73,8 @@ namespace DoubleExtension
         {
             StringBuilder binaryNumber = new StringBuilder();
             int scale = 0;
-            bool isEpsilon = double.Epsilon == number;
-            bool isZero = 0.0 == number;
+            bool epsilon = double.Epsilon == number;
+            bool zero = number == 0.0;
 
             while (number > Math.Pow(2.0, scale))
             {
@@ -100,7 +100,7 @@ namespace DoubleExtension
                 scale--;
             }
 
-            if (isEpsilon || isZero)
+            if (epsilon || zero)
             {
                 binaryNumber.Append(LongToBinary(scale - 1022).PadLeft(11, '0'));
             }

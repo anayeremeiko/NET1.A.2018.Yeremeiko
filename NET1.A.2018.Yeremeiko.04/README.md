@@ -22,4 +22,4 @@ DoubleExtension - логика алгоритма.
 
 ### What is done
 
-...
+GCD - логика класса.
