@@ -25,6 +25,14 @@ namespace GCD.Tests
             Assert.Throws<ArgumentException>(() => GCD.GCDEuclidean(int.MinValue, 0));
         }
 
+        [Test]
+        public void GCDEuclidean_ThrowArgumentNullException()
+        {
+            int[] array = new int[0];
+
+            Assert.Throws<ArgumentNullException>(() => GCD.GCDEuclidean(array));
+        }
+
         [TestCase(0, 5, ExpectedResult = 5)]
         [TestCase(0, -5, ExpectedResult = 5)]
         [TestCase(15, 0, 5, ExpectedResult = 5)]
@@ -42,6 +50,14 @@ namespace GCD.Tests
         public void GCDBinary_MinValue_ThrowsArgumentException()
         {
             Assert.Throws<ArgumentException>(() => GCD.GCDBinary(int.MinValue, 0));
+        }
+
+        [Test]
+        public void GCDBinary_ThrowArgumentNullException()
+        {
+            int[] array = new int[0];
+
+            Assert.Throws<ArgumentNullException>(() => GCD.GCDBinary(array));
         }
     }
 }

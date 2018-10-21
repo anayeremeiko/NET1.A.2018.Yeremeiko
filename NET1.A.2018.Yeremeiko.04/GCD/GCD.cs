@@ -14,8 +14,14 @@ namespace GCD
         /// <param name="numbers">The array containing numbers of all possible value except <see cref="Int32.MinValue"/>.</param>
         /// <returns>The gcd of numbers.</returns>
         /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
+        /// <exception cref="ArgumentNullException">Need not null array.</exception>
         public static int GCDEuclidean(params int[] numbers)
         {
+            if (numbers == null || numbers.Length == 0)
+            {
+                throw new ArgumentNullException(nameof(numbers));
+            }
+
             if (numbers[0] == int.MinValue)
             {
                 throw new ArgumentException($"{nameof(numbers)} shouldn't contain {nameof(int.MinValue)}.");
@@ -47,6 +53,7 @@ namespace GCD
         /// <param name="numbers">The array containing numbers of all possible value except <see cref="Int32.MinValue"/>.</param>
         /// <returns>The gcd of numbers.</returns>
         /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
+        /// <exception cref="ArgumentNullException">Need not null array.</exception>
         public static int GCDEuclidean(out TimeSpan time, params int[] numbers)
         {
             Stopwatch stopWatch = new Stopwatch();
@@ -63,6 +70,7 @@ namespace GCD
         /// <param name="numbers">The array containing numbers of all possible value except <see cref="Int32.MinValue"/>.</param>
         /// <returns>The time euclidean method of counting gcd demands for work.</returns>
         /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
+        /// <exception cref="ArgumentNullException">Need not null array.</exception>
         public static TimeSpan GetTimeGCDEuclidean(params int[] numbers)
         {
             Stopwatch stopWatch = new Stopwatch();
@@ -78,8 +86,14 @@ namespace GCD
         /// <param name="numbers">The array containing numbers of all possible value except <see cref="Int32.MinValue"/>.</param>
         /// <returns>The gcd of numbers.</returns>
         /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
+        /// <exception cref="ArgumentNullException">Need not null array.</exception>
         public static int GCDBinary(params int[] numbers)
         {
+            if (numbers == null || numbers.Length == 0)
+            {
+                throw new ArgumentNullException(nameof(numbers));
+            }
+
             if (numbers[0] == int.MinValue)
             {
                 throw new ArgumentException($"{nameof(numbers)} shouldn't contain {nameof(int.MinValue)}.");
@@ -111,6 +125,7 @@ namespace GCD
         /// <param name="numbers">The array containing numbers of all possible value except <see cref="Int32.MinValue"/>.</param>
         /// <returns>The gcd of numbers.</returns>
         /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
+        /// <exception cref="ArgumentNullException">Need not null array.</exception>
         public static int GCDBinary(out TimeSpan time, params int[] numbers)
         {
             Stopwatch stopWatch = new Stopwatch();
@@ -127,6 +142,7 @@ namespace GCD
         /// <param name="numbers">The array containing numbers of all possible value except <see cref="Int32.MinValue"/>.</param>
         /// <returns>The time stein's method of counting gcd demands for work.</returns>
         /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
+        /// <exception cref="ArgumentNullException">Need not null array.</exception>
         public static TimeSpan GetTimeGCDBinary(params int[] numbers)
         {
             Stopwatch stopWatch = new Stopwatch();
