@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
+using DoubleExtension;
 
 namespace DoubleArrayExtension
 {
@@ -18,14 +21,38 @@ namespace DoubleArrayExtension
         {
             if (array == null || array.Length == 0)
             {
-                throw new ArgumentNullException(nameof(array));
+                throw new ArgumentNullException($"{nameof(array)} need not null array");
             }
 
             string[] stringArray = new string[array.Length];
             int i = 0;
             foreach (double element in array)
             {
-                stringArray[i] = ConvertToString(element.ToString());
+                stringArray[i] = ConvertToString(element);
+                i++;
+            }
+
+            return stringArray;
+        }
+
+        /// <summary>
+        /// Converts double array to string array in binary format.
+        /// </summary>
+        /// <param name="array">The array.</param>
+        /// <returns>The array of numbers in binary format.</returns>
+        /// <exception cref="ArgumentNullException">Need not null array.</exception>
+        public static string[] TransformToIEEEFormat(params double[] array)
+        {
+            if (array == null || array.Length == 0)
+            {
+                throw new ArgumentNullException($"{nameof(array)} need not null array");
+            }
+
+            string[] stringArray = new string[array.Length];
+            int i = 0;
+            foreach (double element in array)
+            {
+                stringArray[i] = element.ToBinary();
                 i++;
             }
 
@@ -37,54 +64,49 @@ namespace DoubleArrayExtension
         /// </summary>
         /// <param name="number">The number.</param>
         /// <returns>Number in words.</returns>
-        private static string ConvertToString(string number)
+        private static string ConvertToString(double number)
         {
-            StringBuilder stringNumber = new StringBuilder();
-            foreach (char symbol in number)
+            if (double.IsNaN(number))
             {
-                switch (symbol)
-                {
-                    case '-':
-                        stringNumber.Append("minus ");
-                        break;
-                    case '0':
-                        stringNumber.Append("zero ");
-                        break;
-                    case '1':
-                        stringNumber.Append("one ");
-                        break;
-                    case '2':
-                        stringNumber.Append("two ");
-                        break;
-                    case '3':
-                        stringNumber.Append("three ");
-                        break;
-                    case '4':
-                        stringNumber.Append("four ");
-                        break;
-                    case '5':
-                        stringNumber.Append("five ");
-                        break;
-                    case '6':
-                        stringNumber.Append("six ");
-                        break;
-                    case '7':
-                        stringNumber.Append("seven ");
-                        break;
-                    case '8':
-                        stringNumber.Append("eight ");
-                        break;
-                    case '9':
-                        stringNumber.Append("nine ");
-                        break;
-                    case '.':
-                    case ',':
-                        stringNumber.Append("point ");
-                        break;
-                }
+                return "not a number ";
+            } 
+
+            if (double.IsPositiveInfinity(number))
+            {
+                return "positive infinity ";
             }
 
-            return stringNumber.ToString();
+            if (double.IsNegativeInfinity(number))
+            {
+                return "negative infinity ";
+            }
+
+            Dictionary<char, string> matching = new Dictionary<char, string>()
+            {
+                { '0', "zero" },
+                { '1', "one" },
+                { '2', "two" },
+                { '3', "three" },
+                { '4', "four" },
+                { '5', "five" },
+                { '6', "six" },
+                { '7', "seven" },
+                { '8', "eight" },
+                { '9', "nine" },
+                { '-', "minus" },
+                { '.', "point" },
+                { 'E', "exponent" },
+                { '+', "plus" }
+            };
+
+            string result = string.Empty;
+
+            foreach (char symbol in number.ToString(CultureInfo.InvariantCulture))
+            {
+                result += matching[symbol] + " ";
+            }
+
+            return result;
         }
     }
 }

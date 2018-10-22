@@ -15,7 +15,7 @@ namespace GCD
         /// <returns>The gcd of numbers.</returns>
         /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
         /// <exception cref="ArgumentNullException">Need not null array.</exception>
-        public static int GCDEuclidean(params int[] numbers)
+        public static int GCDEuclidean(out int milliseconds, params int[] numbers)
         {
             if (numbers == null || numbers.Length == 0)
             {
@@ -26,6 +26,9 @@ namespace GCD
             {
                 throw new ArgumentException($"{nameof(numbers)} shouldn't contain {nameof(int.MinValue)}.");
             }
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
 
             int gcd = numbers[0];
             for (int i = 1; i < numbers.Length; i++)
@@ -43,41 +46,85 @@ namespace GCD
                 gcd = EuclideanMethod(gcd, numbers[i]);
             }
 
+            stopWatch.Stop();
+            milliseconds = stopWatch.Elapsed.Milliseconds;
+
             return gcd;
         }
 
         /// <summary>
-        /// Defines the gcd for integers using the euclidean method and counts the time algorithm demands for work.
+        /// Defines the gcd of two numbers using euclidean method.
         /// </summary>
-        /// <param name="time">The time algorithm demands for work.</param>
-        /// <param name="numbers">The array containing numbers of all possible value except <see cref="Int32.MinValue"/>.</param>
-        /// <returns>The gcd of numbers.</returns>
-        /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
-        /// <exception cref="ArgumentNullException">Need not null array.</exception>
-        public static int GCDEuclidean(out TimeSpan time, params int[] numbers)
+        /// <param name="milliseconds">The milliseconds algorithm need for work.</param>
+        /// <param name="firstNumber">The first number.</param>
+        /// <param name="secondNumber">The second number.</param>
+        /// <exception cref="ArgumentException">Arguments shouldn't be <see cref="Int32.MinValue"/>.</exception>
+        /// <returns>The GCD of two numbers.</returns>
+        public static int GCDEuclidean(out int milliseconds, int firstNumber, int secondNumber)
         {
+            if (firstNumber == int.MinValue || secondNumber == int.MinValue)
+            {
+                throw new ArgumentException($"Arguments shouldn't be {nameof(int.MinValue)}.");
+            }
+
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            int gcd = GCDEuclidean(numbers);
+            if (firstNumber < 0)
+            {
+                firstNumber *= -1;
+            }
+
+            if (secondNumber < 0)
+            {
+                secondNumber *= -1;
+            }
+
+            int gcd = EuclideanMethod(firstNumber, secondNumber);
+
             stopWatch.Stop();
-            time = stopWatch.Elapsed;
+            milliseconds = stopWatch.Elapsed.Milliseconds;
+
             return gcd;
         }
 
         /// <summary>
-        /// Counts the time euclidean method of counting gcd demands for work.
+        /// Defines the gcd of three numbers using euclidean method.
         /// </summary>
-        /// <param name="numbers">The array containing numbers of all possible value except <see cref="Int32.MinValue"/>.</param>
-        /// <returns>The time euclidean method of counting gcd demands for work.</returns>
-        /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
-        /// <exception cref="ArgumentNullException">Need not null array.</exception>
-        public static TimeSpan GetTimeGCDEuclidean(params int[] numbers)
+        /// <param name="milliseconds">The milliseconds algorithm need for work..</param>
+        /// <param name="firstNumber">The first number.</param>
+        /// <param name="secondNumber">The second number.</param>
+        /// <param name="thirdNumber">The third number.</param>
+        /// <exception cref="ArgumentException">Arguments shouldn't be <see cref="Int32.MinValue"/>.</exception>
+        /// <returns>The GCD of three numbers.</returns>
+        public static int GCDEuclidean(out int milliseconds, int firstNumber, int secondNumber, int thirdNumber)
         {
+            if (firstNumber == int.MinValue || secondNumber == int.MinValue || thirdNumber == int.MinValue)
+            {
+                throw new ArgumentException($"Arguments shouldn't be {nameof(int.MinValue)}.");
+            }
+
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            GCDEuclidean(numbers);
+            if (firstNumber < 0)
+            {
+                firstNumber *= -1;
+            }
+
+            if (secondNumber < 0)
+            {
+                secondNumber *= -1;
+            }
+
+            if (thirdNumber < 0)
+            {
+                thirdNumber *= -1;
+            }
+
+            int gcd = EuclideanMethod(EuclideanMethod(firstNumber, secondNumber), thirdNumber);
             stopWatch.Stop();
-            return stopWatch.Elapsed;
+            milliseconds = stopWatch.Elapsed.Milliseconds;
+
+            return gcd;
         }
 
         /// <summary>
@@ -87,7 +134,7 @@ namespace GCD
         /// <returns>The gcd of numbers.</returns>
         /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
         /// <exception cref="ArgumentNullException">Need not null array.</exception>
-        public static int GCDBinary(params int[] numbers)
+        public static int GCDBinary(out int milliseconds, params int[] numbers)
         {
             if (numbers == null || numbers.Length == 0)
             {
@@ -98,6 +145,9 @@ namespace GCD
             {
                 throw new ArgumentException($"{nameof(numbers)} shouldn't contain {nameof(int.MinValue)}.");
             }
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
 
             int gcd = numbers[0];
             for (int i = 1; i < numbers.Length; i++)
@@ -115,41 +165,85 @@ namespace GCD
                 gcd = BinaryMethod(gcd, numbers[i]);
             }
 
+            stopWatch.Stop();
+            milliseconds = stopWatch.Elapsed.Milliseconds;
+
             return gcd;
         }
 
         /// <summary>
-        /// Defines the gcd for integers using the stein's method and counts the time algorithm demands for work.
+        /// Defines the gcd of two numbers using stein's method.
         /// </summary>
-        /// <param name="time">The time algorithm demands for work.</param>
-        /// <param name="numbers">The array containing numbers of all possible value except <see cref="Int32.MinValue"/>.</param>
-        /// <returns>The gcd of numbers.</returns>
-        /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
-        /// <exception cref="ArgumentNullException">Need not null array.</exception>
-        public static int GCDBinary(out TimeSpan time, params int[] numbers)
+        /// <param name="milliseconds">The milliseconds algorithm need for work.</param>
+        /// <param name="firstNumber">The first number.</param>
+        /// <param name="secondNumber">The second number.</param>
+        /// <exception cref="ArgumentException">Arguments shouldn't be <see cref="Int32.MinValue"/>.</exception>
+        /// <returns>The GCD of two numbers.</returns>
+        public static int GCDBinary(out int milliseconds, int firstNumber, int secondNumber)
         {
+            if (firstNumber == int.MinValue || secondNumber == int.MinValue)
+            {
+                throw new ArgumentException($"Arguments shouldn't be {nameof(int.MinValue)}.");
+            }
+
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            int gcd = GCDBinary(numbers);
+            if (firstNumber < 0)
+            {
+                firstNumber *= -1;
+            }
+
+            if (secondNumber < 0)
+            {
+                secondNumber *= -1;
+            }
+
+            int gcd = BinaryMethod(firstNumber, secondNumber);
+
             stopWatch.Stop();
-            time = stopWatch.Elapsed;
+            milliseconds = stopWatch.Elapsed.Milliseconds;
+
             return gcd;
         }
 
         /// <summary>
-        /// Counts the time stein's method of counting gcd demands for work.
+        /// Defines the gcd of three numbers using stein's method.
         /// </summary>
-        /// <param name="numbers">The array containing numbers of all possible value except <see cref="Int32.MinValue"/>.</param>
-        /// <returns>The time stein's method of counting gcd demands for work.</returns>
-        /// <exception cref="ArgumentException"><see cref="numbers"/> shouldn't contain <see cref="Int32.MinValue"/>.</exception>
-        /// <exception cref="ArgumentNullException">Need not null array.</exception>
-        public static TimeSpan GetTimeGCDBinary(params int[] numbers)
+        /// <param name="milliseconds">The milliseconds algorithm need for work..</param>
+        /// <param name="firstNumber">The first number.</param>
+        /// <param name="secondNumber">The second number.</param>
+        /// <param name="thirdNumber">The third number.</param>
+        /// <exception cref="ArgumentException">Arguments shouldn't be <see cref="Int32.MinValue"/>.</exception>
+        /// <returns>The GCD of three numbers.</returns>
+        public static int GCDBinary(out int milliseconds, int firstNumber, int secondNumber, int thirdNumber)
         {
+            if (firstNumber == int.MinValue || secondNumber == int.MinValue || thirdNumber == int.MinValue)
+            {
+                throw new ArgumentException($"Arguments shouldn't be {nameof(int.MinValue)}.");
+            }
+
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            GCDBinary(numbers);
+            if (firstNumber < 0)
+            {
+                firstNumber *= -1;
+            }
+
+            if (secondNumber < 0)
+            {
+                secondNumber *= -1;
+            }
+
+            if (thirdNumber < 0)
+            {
+                thirdNumber *= -1;
+            }
+
+            int gcd = BinaryMethod(BinaryMethod(firstNumber, secondNumber), thirdNumber);
             stopWatch.Stop();
-            return stopWatch.Elapsed;
+            milliseconds = stopWatch.Elapsed.Milliseconds;
+
+            return gcd;
         }
 
         /// <summary>

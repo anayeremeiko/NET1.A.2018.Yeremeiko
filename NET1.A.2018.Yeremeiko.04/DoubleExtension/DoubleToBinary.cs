@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace DoubleExtension
@@ -8,6 +9,8 @@ namespace DoubleExtension
     /// </summary>
     public static class DoubleToBinary
     {
+        private const int MAXBITS = 64;
+
         /// <summary>
         /// Converts double to binary.
         /// </summary>
@@ -15,102 +18,34 @@ namespace DoubleExtension
         /// <returns>Binary representation of target number in IEEE 754.</returns>
         public static string ToBinary(this double number)
         {
-            StringBuilder binaryNumber = new StringBuilder();
-            if (number < 0.0 || double.IsNaN(number) || double.IsNegativeInfinity(1 / number) || double.IsNegativeInfinity(number))
+            DoubleToLong converter = new DoubleToLong(number);
+            long longNumber = converter.LongValue;
+
+            StringBuilder result = new StringBuilder();
+
+            for (int i = 0; i < MAXBITS; i++)
             {
-                binaryNumber.Append('1');
-                number *= -1;
-            }
-            else
-            {
-                binaryNumber.Append('0');
+                result.Insert(0, (longNumber & 1) == 1 ? "1" : "0");
+
+                longNumber >>= 1;
             }
 
-            if (double.IsNaN(number))
-            {
-                binaryNumber.Append(string.Empty.PadLeft(12, '1'));
-                binaryNumber.Append(string.Empty.PadLeft(51, '0'));
-            }
-            else if (double.IsInfinity(number))
-            {
-                binaryNumber.Append(string.Empty.PadLeft(11, '1'));
-                binaryNumber.Append(string.Empty.PadLeft(52, '0'));
-            }
-            else
-            {
-                binaryNumber.Append(ConvertToBinary(number));
-            }
-            
-            return binaryNumber.ToString();
+            return result.ToString();
         }
 
-        /// <summary>
-        /// Converts long to binary.
-        /// </summary>
-        /// <param name="number">The target number.</param>
-        /// <returns>String representation of target number.</returns>
-        private static string LongToBinary(long number)
+        [StructLayout(LayoutKind.Explicit)]
+        private struct DoubleToLong
         {
-            StringBuilder stringNumber = new StringBuilder();
-            long remainder;
+            [FieldOffset(0)]
+            public long LongValue;
 
-            while (number > 0)
-            {
-                remainder = number % 2;
-                number /= 2;
-                stringNumber.Insert(0, (remainder & 1) == 1 ? 1 : 0);
-            }
+            [FieldOffset(0)]
+            private double doubleValue;
 
-            return stringNumber.ToString();
-        }
-
-        /// <summary>
-        /// Converts double to binary.
-        /// </summary>
-        /// <param name="number">The target number.</param>
-        /// <returns>String representation of target number.</returns>
-        private static string ConvertToBinary(double number)
-        {
-            StringBuilder binaryNumber = new StringBuilder();
-            int scale = 0;
-            bool epsilon = double.Epsilon == number;
-            bool zero = number == 0.0;
-
-            while (number > Math.Pow(2.0, scale))
+            public DoubleToLong(double number) : this()
             {
-                scale++;
+                doubleValue = number;
             }
-
-            int denominator = 0;
-            while (number % 1 != 0)
-            {
-                number *= 10;
-                denominator++;
-            }
-
-            long numerator = (long)(number * Math.Pow(2.0, 53 - scale));
-            long remainder = numerator % (int)Math.Pow(10.0, denominator);
-            numerator /= (long)Math.Pow(10.0, denominator);
-            if (remainder > Math.Pow(10.0, denominator) / 2)
-            {
-                scale--;
-            }
-            else if (remainder == (Math.Pow(10.0, denominator) / 2) && ((numerator & 1) != 0))
-            {
-                scale--;
-            }
-
-            if (epsilon || zero)
-            {
-                binaryNumber.Append(LongToBinary(scale - 1022).PadLeft(11, '0'));
-            }
-            else
-            {
-                binaryNumber.Append(LongToBinary(scale + 1022).PadLeft(11, '0'));
-            }
-            
-            binaryNumber.Append(LongToBinary(numerator).PadLeft(53, '0').Remove(0, 1));
-            return binaryNumber.ToString();
         }
     }
 }
