@@ -6,7 +6,7 @@
 
 ### What is done
 
-DoubleArrayExtension - логика алгоритма.
+https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.04/DoubleArrayExtension/NumbersToString.cs
 
 ## TASK 2
 
@@ -14,7 +14,7 @@ DoubleArrayExtension - логика алгоритма.
 
 ### What is done
 
-DoubleExtension - логика алгоритма.
+https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.04/DoubleExtension/DoubleToBinary.cs
 
 ## TASK 3
 
@@ -22,4 +22,4 @@ DoubleExtension - логика алгоритма.
 
 ### What is done
 
-GCD - логика класса.
+https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.04/GCD/GCD.cs
