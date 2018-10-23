@@ -14,7 +14,7 @@ namespace FindNumberLogic.Tests
         [TestCase(1234321, ExpectedResult = 1241233)]
         [TestCase(1234126, ExpectedResult = 1234162)]
         [TestCase(3456432, ExpectedResult = 3462345)]
-        public int FindNextBiggerNumber_ReturnNextBiggerNumber(int number)
+        public int? FindNextBiggerNumber_ReturnNextBiggerNumber(int number)
         {
             return NumberFinder.FindNextBiggerNumber(number);
         }
@@ -26,9 +26,10 @@ namespace FindNumberLogic.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() => NumberFinder.FindNextBiggerNumber(number));
         }
 
-        [TestCase(10, ExpectedResult = -1)]
-        [TestCase(20, ExpectedResult = -1)]
-        public int FindNextBiggerNumber_ReturnNeg1(int number)
+        [TestCase(10, ExpectedResult = null)]
+        [TestCase(20, ExpectedResult = null)]
+        [TestCase(1, ExpectedResult = null)]
+        public int? FindNextBiggerNumber_ReturnNeg1(int number)
         {
             return NumberFinder.FindNextBiggerNumber(number);
         }

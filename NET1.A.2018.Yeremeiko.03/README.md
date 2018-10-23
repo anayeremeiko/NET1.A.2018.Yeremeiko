@@ -6,7 +6,7 @@
 
 ### What is done
 
-FindNthNumberLogic - логика алгоритма.
+https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.03/FindNthRootLogic/FindRootNewton.cs
 
 ## TASK 2
 
@@ -14,4 +14,4 @@ FindNthNumberLogic - логика алгоритма.
 
 ### What is done
 
-FindNumberLogic - логика алгоритма.
+https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.03/FindNumberLogic/NumberFinder.cs

@@ -13,7 +13,7 @@ namespace FindNumberLogic
         /// <param name="number">The number.</param>
         /// <returns>The next bigger number of specified number.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Need positive number.</exception>
-        public static int FindNextBiggerNumber(int number)
+        public static int? FindNextBiggerNumber(int number)
         {
             if (number <= 0)
             {
@@ -32,7 +32,7 @@ namespace FindNumberLogic
                 return nextNumber;
             }
 
-            return -1;
+            return null;
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace FindNumberLogic
             {
                 if (array[i] > array[i - 1])
                 {
-                    Swap(array, i - 1, i);
+                    Swap(ref array[i - 1], ref array[i]);
                     return i;
                 }
             }
@@ -55,21 +55,15 @@ namespace FindNumberLogic
         }
 
         /// <summary>
-        /// Swaps the numbers in specified array.
+        /// Swaps the numbers.
         /// </summary>
-        /// <param name="array">The array.</param>
-        /// <param name="i">The index of first number.</param>
-        /// <param name="j">The index of second number.</param>
-        private static void Swap(int[] array, int i, int j)
+        /// <param name="i">The first number.</param>
+        /// <param name="j">The second number.</param>
+        private static void Swap(ref int i, ref int j)
         {
-            if (i < 0 || j < 0)
-            {
-                return;
-            }
-
-            int temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
+            int temp = i;
+            i = j;
+            j = temp;
         }
 
         /// <summary>
