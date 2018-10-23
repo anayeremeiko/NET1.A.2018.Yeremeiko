@@ -42,6 +42,24 @@ namespace Polynomial.Tests
             Assert.IsTrue(firstPolynomial != secondPolynomial);
         }
 
+        [Test]
+        public void Equals_EqualPolynomials_ReturnTrue()
+        {
+            Polynomial firstPolynomial = new Polynomial(1.2, 3.4, 9.8, 0.0001);
+            Polynomial secondPolynomial = new Polynomial(1.2, 3.4, 9.8, 0.0001);
+
+            Assert.IsTrue(firstPolynomial.Equals(secondPolynomial));
+        }
+
+        [Test]
+        public void Equals_NonEqualPolynomials_ReturnFalse()
+        {
+            Polynomial firstPolynomial = new Polynomial(1.2, 3.4, 9.8, 0.0001);
+            Polynomial secondPolynomial = new Polynomial(1.2, 3.4, 9.8);
+
+            Assert.IsFalse(firstPolynomial.Equals(secondPolynomial));
+        }
+
         [TestCase(1.2, 0.9, 1, ExpectedResult = "Polynomial: 1,2x^2 + 0,9x^1 + 1")]
         [TestCase(double.MinValue, double.MaxValue, ExpectedResult = "Polynomial: -1,79769313486232E+308x^1 + 1,79769313486232E+308")]
         [TestCase(2, ExpectedResult = "Polynomial: 2")]
@@ -115,6 +133,29 @@ namespace Polynomial.Tests
             Polynomial expected = new Polynomial(6, -27, 16, -72);
 
             CollectionAssert.AreEqual(expected.Arguments, (firstPolynomial * secondPolynomial).Arguments);
+        }
+
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void PolynomialCtor_ThrowArgumentException(params double[] array)
+        {
+            Assert.Throws<ArgumentException>(() => new Polynomial(array));
+        }
+
+        [Test]
+        public void PolynomialCtor_ThrowArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => new Polynomial());
+        }
+
+        [Test]
+        public void GetHashCode_ReturnEqualHashCode()
+        {
+            Polynomial firstPolynomial = new Polynomial(1.2, 3.6, 0.1);
+            Polynomial secondPolynomial = new Polynomial(1.2, 3.6, 0.1);
+
+            Assert.AreEqual(firstPolynomial.GetHashCode(), secondPolynomial.GetHashCode());
         }
     }
 }
