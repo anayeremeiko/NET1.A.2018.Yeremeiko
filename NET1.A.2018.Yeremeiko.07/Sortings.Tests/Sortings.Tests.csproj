@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompareByMaxElementAscending.cs" />
+    <Compile Include="CompareByMaxElementDescending.cs" />
+    <Compile Include="CompareByMinElementAscending.cs" />
+    <Compile Include="CompareByMinElementDescending.cs" />
+    <Compile Include="CompareBySumAscending.cs" />
+    <Compile Include="CompareBySumDescending.cs" />
     <Compile Include="SortingsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

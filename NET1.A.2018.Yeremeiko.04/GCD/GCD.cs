@@ -48,7 +48,7 @@ namespace GCD
 
             stopWatch.Stop();
             milliseconds = stopWatch.Elapsed.Milliseconds;
-
+            
             return gcd;
         }
 
@@ -167,7 +167,7 @@ namespace GCD
 
             stopWatch.Stop();
             milliseconds = stopWatch.Elapsed.Milliseconds;
-
+            
             return gcd;
         }
 

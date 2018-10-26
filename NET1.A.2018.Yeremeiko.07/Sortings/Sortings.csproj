@@ -41,9 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompareByMaxElement.cs" />
-    <Compile Include="CompareByMinElement.cs" />
-    <Compile Include="CompareBySum.cs" />
     <Compile Include="Sortings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

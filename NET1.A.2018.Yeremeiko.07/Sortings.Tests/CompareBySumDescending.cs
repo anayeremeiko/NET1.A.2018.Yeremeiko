@@ -6,24 +6,12 @@ using System.Threading.Tasks;
 
 namespace Sortings
 {
-    public class CompareBySum : IComparer<int[]>
+    public class CompareBySumDescending : IComparer<int[]>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CompareBySum"/> class.
+        /// Initializes a new instance of the <see cref="CompareBySumDescending"/> class.
         /// </summary>
-        /// <param name="descending">if set to <c>true</c> [descending].</param>
-        public CompareBySum(bool descending = true)
-        {
-            Descending = descending;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="CompareBySum"/> is descending.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if descending; otherwise, <c>false</c>.
-        /// </value>
-        public bool Descending { get; set; }
+        public CompareBySumDescending() { }
 
         /// <summary>
         /// Compares first array with second array by sum of elements in each array.
@@ -40,15 +28,15 @@ namespace Sortings
 
             if (firstArray == null)
             {
-                return Descending ? 1 : -1;
+                return 1;
             }
 
             if (secondArray == null)
             {
-                return Descending ? -1 : 1;
+                return -1;
             }
 
-            return Descending ? firstArray.Sum() - secondArray.Sum() : secondArray.Sum() - firstArray.Sum();
+            return firstArray.Sum() - secondArray.Sum();
         }
     }
 }

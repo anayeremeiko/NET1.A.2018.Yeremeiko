@@ -13,13 +13,13 @@ namespace Sortings.Tests
         [Test]
         public void Sort_NullArray_ThrowArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => Sortings.Sort(null, new CompareBySum()));
+            Assert.Throws<ArgumentNullException>(() => Sortings.Sort(null, new CompareBySumDescending()));
         }
 
         [Test]
         public void Sort_EmptyArray_ThrowArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => Sortings.Sort(new int[0][], new CompareByMinElement(false)));
+            Assert.Throws<ArgumentNullException>(() => Sortings.Sort(new int[0][], new CompareByMinElementAscending()));
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace Sortings.Tests
                 new int[] { 0, 563, 45321862 }
             };
 
-            Sortings.Sort(array, new CompareBySum(false));
+            Sortings.Sort(array, new CompareBySumAscending());
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -79,7 +79,7 @@ namespace Sortings.Tests
                 new int[] { -51237965 }
             };
 
-            Sortings.Sort(array, new CompareBySum());
+            Sortings.Sort(array, new CompareBySumDescending());
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -103,7 +103,7 @@ namespace Sortings.Tests
                 null
             };
 
-            Sortings.Sort(array, new CompareByMaxElement(false));
+            Sortings.Sort(array, new CompareByMaxElementAscending());
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -127,7 +127,7 @@ namespace Sortings.Tests
                 new int[] { 6, 0, int.MinValue }
             };
 
-            Sortings.Sort(array, new CompareByMaxElement());
+            Sortings.Sort(array, new CompareByMaxElementDescending());
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -153,7 +153,7 @@ namespace Sortings.Tests
                 null,
             };
 
-            Sortings.Sort(array, new CompareByMinElement(false));
+            Sortings.Sort(array, new CompareByMinElementAscending());
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -179,7 +179,7 @@ namespace Sortings.Tests
                 new int[] { -5 }
             };
 
-            Sortings.Sort(array, new CompareByMinElement());
+            Sortings.Sort(array, new CompareByMinElementDescending());
 
             CollectionAssert.AreEqual(sortedArray, array);
         }

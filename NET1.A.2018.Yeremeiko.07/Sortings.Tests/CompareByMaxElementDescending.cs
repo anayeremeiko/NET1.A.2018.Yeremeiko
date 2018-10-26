@@ -6,24 +6,12 @@ using System.Threading.Tasks;
 
 namespace Sortings
 {
-    public class CompareByMaxElement : IComparer<int[]>
+    public class CompareByMaxElementDescending : IComparer<int[]>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CompareByMaxElement"/> class.
+        /// Initializes a new instance of the <see cref="CompareByMaxElementDescending"/> class.
         /// </summary>
-        /// <param name="ascending">if set to <c>true</c> [descending].</param>
-        public CompareByMaxElement(bool descending = true)
-        {
-            Descending = descending;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="CompareByMaxElement"/> is descending.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if descending; otherwise, <c>false</c>.
-        /// </value>
-        public bool Descending { get; set; }
+        public CompareByMaxElementDescending() { }
 
         /// <summary>
         /// Compares first array with second array by max element in each array.
@@ -40,15 +28,15 @@ namespace Sortings
 
             if (firstArray == null)
             {
-                return Descending ? 1 : -1;
+                return 1;
             }
 
             if (secondArray == null)
             {
-                return Descending ? -1 : 1;
+                return -1;
             }
 
-            return Descending ? firstArray.Max() - secondArray.Max() : secondArray.Max() - firstArray.Max();
+            return firstArray.Max() - secondArray.Max();
         }
     }
 }

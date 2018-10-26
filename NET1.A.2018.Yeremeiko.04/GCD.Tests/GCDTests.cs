@@ -8,7 +8,9 @@ namespace GCD.Tests
     {
         [TestCase(3, 7, 2, 5, ExpectedResult = 1)]
         [TestCase(5, 15, 10, 100, ExpectedResult = 5)]
-        [TestCase(24, 368, 1024, ExpectedResult = 8)]
+        [TestCase(24, 368, 1024, 8, ExpectedResult = 8)]
+        [TestCase(123456789, 987654321, 44444444, 581734090, 79254138, ExpectedResult = 1)]
+        [TestCase(int.MaxValue, int.MaxValue - 104, 48732198, 987154860, ExpectedResult = 1)]
         public int GCDEuclidean_ValidNumbers_ReturnGCD(params int[] numbers)
         {
             return GCD.GCDEuclidean(out _, numbers);
@@ -17,6 +19,8 @@ namespace GCD.Tests
         [TestCase(0, 5, ExpectedResult = 5)]
         [TestCase(0, -5, ExpectedResult = 5)]
         [TestCase(0, int.MaxValue, ExpectedResult = int.MaxValue)]
+        [TestCase(1234567890, 44444444, ExpectedResult = 2)]
+        [TestCase(65798329, 30000006, ExpectedResult = 1)]
         public int GCDEuclidean_ValidNumbers_ReturnGCD(int first, int second)
         {
             return GCD.GCDEuclidean(out _, first, second);
@@ -46,6 +50,8 @@ namespace GCD.Tests
         [TestCase(3, 7, 2, 5, ExpectedResult = 1)]
         [TestCase(5, 15, 10, 100, ExpectedResult = 5)]
         [TestCase(24, 368, 1024, ExpectedResult = 8)]
+        [TestCase(123456789, 987654321, 44444444, 581734090, 79254138, ExpectedResult = 1)]
+        [TestCase(int.MaxValue, int.MaxValue - 104, 48732198, 987154860, ExpectedResult = 1)]
         public int GCDBinary_ValidNumbers_ReturnGCD(params int[] numbers)
         {
             return GCD.GCDBinary(out _, numbers);
@@ -54,6 +60,8 @@ namespace GCD.Tests
         [TestCase(0, 5, ExpectedResult = 5)]
         [TestCase(0, -5, ExpectedResult = 5)]
         [TestCase(0, int.MaxValue, ExpectedResult = int.MaxValue)]
+        [TestCase(1234567890, 44444444, ExpectedResult = 2)]
+        [TestCase(65798329, 30000006, ExpectedResult = 1)]
         public int GCDBinary_ValidNumbers_ReturnGCD(int first, int second)
         {
             return GCD.GCDBinary(out _, first, second);

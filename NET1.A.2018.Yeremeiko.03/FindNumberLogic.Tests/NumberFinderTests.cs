@@ -29,7 +29,7 @@ namespace FindNumberLogic.Tests
         [TestCase(10, ExpectedResult = null)]
         [TestCase(20, ExpectedResult = null)]
         [TestCase(1, ExpectedResult = null)]
-        public int? FindNextBiggerNumber_ReturnNeg1(int number)
+        public int? FindNextBiggerNumber_ReturnNull(int number)
         {
             return NumberFinder.FindNextBiggerNumber(number);
         }
