@@ -14,8 +14,3 @@ https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Ye
 
 https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.05/Polynomial.Tests/PolynomialTests.cs
 
-Подключенные проекты:
-
-https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/tree/master/NET1.A.2018.Yeremeiko.04/DoubleArrayExtension
-
-https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/tree/master/NET1.A.2018.Yeremeiko.04/DoubleExtension

@@ -80,7 +80,7 @@ namespace Polynomial.Tests
         {
             Polynomial polynomial = new Polynomial(array);
 
-            return polynomial.Degree();
+            return polynomial.Degree;
         }
 
         [TestCase(9, 9, 9)]
@@ -112,7 +112,7 @@ namespace Polynomial.Tests
             Polynomial secondPolynomial = new Polynomial(4, 7);
             Polynomial expected = new Polynomial(9, 4);
 
-            CollectionAssert.AreEqual(expected.Arguments, (firstPolynomial + secondPolynomial).Arguments);
+            CollectionAssert.AreEqual(expected.Coefficients, (firstPolynomial + secondPolynomial).Coefficients);
         }
 
         [Test]
@@ -122,7 +122,7 @@ namespace Polynomial.Tests
             Polynomial secondPolynomial = new Polynomial(3, 0, 4, -1);
             Polynomial expected = new Polynomial(-8, 0, 4, -4);
 
-            CollectionAssert.AreEqual(expected.Arguments, (firstPolynomial - secondPolynomial).Arguments);
+            CollectionAssert.AreEqual(expected.Coefficients, (firstPolynomial - secondPolynomial).Coefficients);
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace Polynomial.Tests
             Polynomial secondPolynomial = new Polynomial(2, -9);
             Polynomial expected = new Polynomial(6, -27, 16, -72);
 
-            CollectionAssert.AreEqual(expected.Arguments, (firstPolynomial * secondPolynomial).Arguments);
+            CollectionAssert.AreEqual(expected.Coefficients, (firstPolynomial * secondPolynomial).Coefficients);
         }
 
         [TestCase(double.NaN)]
@@ -156,6 +156,15 @@ namespace Polynomial.Tests
             Polynomial secondPolynomial = new Polynomial(1.2, 3.6, 0.1);
 
             Assert.AreEqual(firstPolynomial.GetHashCode(), secondPolynomial.GetHashCode());
+        }
+
+        [Test]
+        public void GetHashCode_AlmostEqualPolynomials_ReturnNonEqualHashCode()
+        {
+            Polynomial firstPolynomial = new Polynomial(1.2, 3.6, 0.1);
+            Polynomial secondPolynomial = new Polynomial(1.2, 3.6, 0.1000000000000001);
+
+            Assert.AreNotEqual(firstPolynomial.GetHashCode(), secondPolynomial.GetHashCode());
         }
     }
 }
