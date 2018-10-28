@@ -569,11 +569,22 @@ namespace Polynomial
         /// <returns>
         /// A new object that is a copy of this instance.
         /// </returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
             double[] cloneCoefficients = new double[Degree + 1];
             Coefficients.CopyTo(cloneCoefficients, 0);
             return new Polynomial(cloneCoefficients);
+        }
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>The clone of polynomial.</returns>
+        public Polynomial Clone()
+        {
+            double[] cloneCoefficients = new double[Degree + 1];
+            Coefficients.CopyTo(cloneCoefficients, 0);
+            return new Polynomial();
         }
 
         /// <summary>
