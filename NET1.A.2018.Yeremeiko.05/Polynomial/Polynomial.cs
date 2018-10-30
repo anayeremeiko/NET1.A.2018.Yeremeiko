@@ -10,12 +10,19 @@ namespace Polynomial
     /// </summary>
     public sealed class Polynomial : ICloneable, IEquatable<Polynomial>
     {
-        private static double epsilon = 0.000000001;
+        private static double epsilon;
         private double[] coefficients;
 
         static Polynomial()
         {
-
+            try
+            {
+                Epsilon = double.Parse(System.Configuration.ConfigurationManager.AppSettings["epsilon"]);
+            }
+            catch (Exception)
+            {
+                Epsilon = 0.000000001;
+            }
         }
 
         /// <summary>
@@ -33,7 +40,7 @@ namespace Polynomial
 
             foreach (double number in coefficients)
             {
-                if (double.IsInfinity(number) || double.IsNaN(number))
+                if (double.IsInfinity(number) || double.IsNaN(number) || (Math.Abs(number) < Epsilon && number != 0))
                 {
                     throw new ArgumentException($"{nameof(number)} is invalid value.");
                 }
@@ -47,11 +54,6 @@ namespace Polynomial
         public static double Epsilon { get => epsilon; set => epsilon = value; }
 
         /// <summary>
-        /// Access to coefficients of polynomial.
-        /// </summary>
-        public double[] Coefficients { get => coefficients; private set => coefficients = value; }
-
-        /// <summary>
         /// The degree of polynomial.
         /// </summary>
         /// <returns>The degree of polynomial.</returns>
@@ -60,12 +62,12 @@ namespace Polynomial
         {
             get
             {
-                if (ReferenceEquals(Coefficients, null))
+                if (ReferenceEquals(coefficients, null))
                 {
-                    throw new ArgumentNullException($"{nameof(Coefficients)} are null.");
+                    throw new ArgumentNullException($"{nameof(coefficients)} are null.");
                 }
 
-                return Coefficients.Length - 1;
+                return coefficients.Length - 1;
             }
         }
 
@@ -84,8 +86,19 @@ namespace Polynomial
                     throw new ArgumentOutOfRangeException($"{nameof(index)} need to be non negative and les then degree of polynomial.");
                 }
 
-                return Coefficients[index];
+                return coefficients[index];
             }
+        }
+
+        /// <summary>
+        /// Polynomials coefficients.
+        /// </summary>
+        /// <returns></returns>
+        public double[] PolynomialCoefficients()
+        {
+            double[] array = new double[coefficients.Length];
+            coefficients.CopyTo(array, 0);
+            return array;
         }
 
         /// <summary>
@@ -146,7 +159,7 @@ namespace Polynomial
                 throw new ArgumentNullException($"{nameof(firstPolynomial)} and {nameof(secondPolynomial)} need to be not null.");
             }
 
-            double[] newArguments = new double[firstPolynomial.Degree > secondPolynomial.Degree ? firstPolynomial.Coefficients.Length : secondPolynomial.Coefficients.Length];
+            double[] newArguments = new double[firstPolynomial.Degree > secondPolynomial.Degree ? firstPolynomial.coefficients.Length : secondPolynomial.coefficients.Length];
 
             for (int i = 0; i < newArguments.Length; i++)
             {
@@ -271,7 +284,7 @@ namespace Polynomial
                 throw new ArgumentNullException($"{nameof(polynomial)} and {nameof(secondPolynomial)} need to be not null.");
             }
 
-            double[] newArguments = new double[polynomial.Coefficients.Length + secondPolynomial.Coefficients.Length - 1];
+            double[] newArguments = new double[polynomial.coefficients.Length + secondPolynomial.coefficients.Length - 1];
 
             for (int i = 0; i <= polynomial.Degree; i++)
             {
@@ -298,7 +311,7 @@ namespace Polynomial
                 throw new ArgumentNullException($"{nameof(polynomial)} need to be not null.");
             }
 
-            double[] newArguments = new double[polynomial.Coefficients.Length];
+            double[] newArguments = new double[polynomial.coefficients.Length];
 
             for (int i = 0; i <= polynomial.Degree; i++)
             {
@@ -322,7 +335,7 @@ namespace Polynomial
                 throw new ArgumentNullException($"{nameof(polynomial)} need to be not null.");
             }
 
-            double[] newArguments = new double[polynomial.Coefficients.Length];
+            double[] newArguments = new double[polynomial.coefficients.Length];
 
             for (int i = 0; i <= polynomial.Degree; i++)
             {
@@ -346,7 +359,7 @@ namespace Polynomial
                 throw new ArgumentNullException($"{nameof(polynomial)} need to be not null.");
             }
 
-            double[] newArguments = new double[polynomial.Coefficients.Length];
+            double[] newArguments = new double[polynomial.coefficients.Length];
 
             for (int i = 0; i <= polynomial.Degree; i++)
             {
@@ -370,7 +383,7 @@ namespace Polynomial
                 throw new ArgumentNullException($"{nameof(polynomial)} need to be not null.");
             }
 
-            double[] newArguments = new double[polynomial.Coefficients.Length];
+            double[] newArguments = new double[polynomial.coefficients.Length];
 
             for (int i = 0; i <= polynomial.Degree; i++)
             {
@@ -481,7 +494,7 @@ namespace Polynomial
             int degree = Degree;
             double result = 0;
 
-            foreach (double coefficient in Coefficients)
+            foreach (double coefficient in coefficients)
             {
                 result += coefficient * Math.Pow(unknown, degree--);
             }
@@ -538,7 +551,7 @@ namespace Polynomial
 
             for (int i = 0; i <= Degree; i++)
             {
-                if (Math.Abs(Coefficients[i] - polynomial[i]) > epsilon)
+                if (Math.Abs(coefficients[i] - polynomial[i]) > epsilon)
                 {
                     return false;
                 }
@@ -554,9 +567,9 @@ namespace Polynomial
         public override int GetHashCode() 
         {
             int hashCode = 0;
-            foreach (double number in Coefficients)
+            foreach (double number in coefficients)
             {
-                int intNumber = (int)BitConverter.DoubleToInt64Bits(number);
+                int intNumber = (int)BitConverter.DoubleToInt64Bits(Math.Round(number, epsilon.ToString().Length - 2));
                 hashCode += (intNumber >> (Degree + 1)) ^ intNumber;
             }
 
@@ -571,9 +584,7 @@ namespace Polynomial
         /// </returns>
         object ICloneable.Clone()
         {
-            double[] cloneCoefficients = new double[Degree + 1];
-            Coefficients.CopyTo(cloneCoefficients, 0);
-            return new Polynomial(cloneCoefficients);
+            return new Polynomial(coefficients);
         }
 
         /// <summary>
@@ -582,9 +593,7 @@ namespace Polynomial
         /// <returns>The clone of polynomial.</returns>
         public Polynomial Clone()
         {
-            double[] cloneCoefficients = new double[Degree + 1];
-            Coefficients.CopyTo(cloneCoefficients, 0);
-            return new Polynomial();
+            return new Polynomial(coefficients);
         }
 
         /// <summary>
@@ -596,7 +605,7 @@ namespace Polynomial
             StringBuilder result = new StringBuilder("Polynomial: ");
             int degree = Degree;
             
-            foreach (double number in Coefficients)
+            foreach (double number in coefficients)
             {
                 if (degree == 0)
                 {

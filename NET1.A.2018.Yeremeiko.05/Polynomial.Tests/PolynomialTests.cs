@@ -63,7 +63,7 @@ namespace Polynomial.Tests
         [TestCase(1.2, 0.9, 1, ExpectedResult = "Polynomial: 1,2x^2 + 0,9x^1 + 1")]
         [TestCase(double.MinValue, double.MaxValue, ExpectedResult = "Polynomial: -1,79769313486232E+308x^1 + 1,79769313486232E+308")]
         [TestCase(2, ExpectedResult = "Polynomial: 2")]
-        [TestCase(987.000008, double.Epsilon, 0, ExpectedResult = "Polynomial: 987,000008x^2 + 4,94065645841247E-324x^1 + 0")]
+        [TestCase(987.000008, 0, ExpectedResult = "Polynomial: 987,000008x^1 + 0")]
         public string ToString_ReturnStringPolynomial(params double[] array)
         {
             Polynomial polynomial = new Polynomial(array);
@@ -112,7 +112,7 @@ namespace Polynomial.Tests
             Polynomial secondPolynomial = new Polynomial(4, 7);
             Polynomial expected = new Polynomial(9, 4);
 
-            CollectionAssert.AreEqual(expected.Coefficients, (firstPolynomial + secondPolynomial).Coefficients);
+            CollectionAssert.AreEqual(expected.PolynomialCoefficients(), (firstPolynomial + secondPolynomial).PolynomialCoefficients());
         }
 
         [Test]
@@ -122,7 +122,7 @@ namespace Polynomial.Tests
             Polynomial secondPolynomial = new Polynomial(3, 0, 4, -1);
             Polynomial expected = new Polynomial(-8, 0, 4, -4);
 
-            CollectionAssert.AreEqual(expected.Coefficients, (firstPolynomial - secondPolynomial).Coefficients);
+            CollectionAssert.AreEqual(expected.PolynomialCoefficients(), (firstPolynomial - secondPolynomial).PolynomialCoefficients());
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace Polynomial.Tests
             Polynomial secondPolynomial = new Polynomial(2, -9);
             Polynomial expected = new Polynomial(6, -27, 16, -72);
 
-            CollectionAssert.AreEqual(expected.Coefficients, (firstPolynomial * secondPolynomial).Coefficients);
+            CollectionAssert.AreEqual(expected.PolynomialCoefficients(), (firstPolynomial * secondPolynomial).PolynomialCoefficients());
         }
 
         [TestCase(double.NaN)]
@@ -159,12 +159,12 @@ namespace Polynomial.Tests
         }
 
         [Test]
-        public void GetHashCode_AlmostEqualPolynomials_ReturnNonEqualHashCode()
+        public void GetHashCode_AlmostEqualPolynomials_ReturnEqualHashCode()
         {
             Polynomial firstPolynomial = new Polynomial(1.2, 3.6, 0.1);
-            Polynomial secondPolynomial = new Polynomial(1.2, 3.6, 0.1000000000000001);
+            Polynomial secondPolynomial = new Polynomial(1.2, 3.6, 0.10000000001);
 
-            Assert.AreNotEqual(firstPolynomial.GetHashCode(), secondPolynomial.GetHashCode());
+            Assert.AreEqual(firstPolynomial.GetHashCode(), secondPolynomial.GetHashCode());
         }
     }
 }
