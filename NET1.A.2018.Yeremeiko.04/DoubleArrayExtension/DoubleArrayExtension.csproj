@@ -41,8 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DoubleConverter.cs" />
+    <Compile Include="DoubleToIEEE.cs" />
+    <Compile Include="ITransformer.cs" />
     <Compile Include="NumbersToString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DoubleExtension\DoubleExtension.csproj">
+      <Project>{f092477d-a92b-4af4-8833-a96c2bcc5cac}</Project>
+      <Name>DoubleExtension</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
