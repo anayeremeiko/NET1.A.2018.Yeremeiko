@@ -8,6 +8,8 @@ namespace Sortings
 {
     public static class Sortings
     {
+        public delegate int Sorter(int[] firstArray, int[] secondArray);
+
         /// <summary>
         /// Sorts the specified array with bubble method.
         /// </summary>
@@ -17,21 +19,32 @@ namespace Sortings
         /// <exception cref="ArgumentException">Comparer need to be not null.</exception>
         public static void Sort(int[][] array, IComparer<int[]> comparer)
         {
-            if (array == null || array.Length == 0)
-            {
-                throw new ArgumentNullException($"{nameof(array)} shouldn't be null or empty.");
-            }
-
             if (comparer == null)
             {
                 throw new ArgumentException(nameof(comparer));
+            }
+
+            Sort(array, comparer.Compare);
+        }
+
+        /// <summary>
+        /// Sorts the specified array.
+        /// </summary>
+        /// <param name="array">The array.</param>
+        /// <param name="sorter">The sorter.</param>
+        /// <exception cref="ArgumentNullException">Array shouldn't be null or empty.</exception>
+        private static void Sort(int[][] array, Sorter sorter)
+        {
+            if (array == null || array.Length == 0)
+            {
+                throw new ArgumentNullException($"{nameof(array)} shouldn't be null or empty.");
             }
 
             for (int i = 0; i < array.Length; i++)
             {
                 for (int j = array.Length - 1; j > 0; j--)
                 {
-                    if (comparer.Compare(array[j], array[j - 1]) > 0)
+                    if (sorter.Invoke(array[j], array[j - 1]) > 0)
                     {
                         Swap(ref array[j], ref array[j - 1]);
                     }
