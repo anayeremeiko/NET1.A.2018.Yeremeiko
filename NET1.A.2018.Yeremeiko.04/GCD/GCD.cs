@@ -67,9 +67,7 @@ namespace GCD
         /// <exception cref="ArgumentException">Arguments shouldn't be <see cref="Int32.MinValue"/>.</exception>
         /// <returns>The GCD of three numbers.</returns>
         public static int GCDBinary(out int milliseconds, int firstNumber, int secondNumber, int thirdNumber) => GCDCount(out milliseconds, BinaryMethod, firstNumber, secondNumber, thirdNumber);
-
-        private delegate int GCDDelegate(int first, int second);
-
+        
         /// <summary>
         /// Counts the gcd.
         /// </summary>
@@ -77,7 +75,7 @@ namespace GCD
         /// <param name="method">The method of gcd count.</param>
         /// <param name="numbers">The numbers.</param>
         /// <returns>The gcd.</returns>
-        private static int GCDCount(out int milliseconds, GCDDelegate method, params int[] numbers)
+        private static int GCDCount(out int milliseconds, Func<int, int, int> method, params int[] numbers)
         {
             if (numbers == null || numbers.Length == 0)
             {
@@ -122,7 +120,7 @@ namespace GCD
         /// <param name="firstNumber">The first number.</param>
         /// <param name="secondNumber">The second number.</param>
         /// <returns>The gcd</returns>
-        private static int GCDCount(out int milliseconds, GCDDelegate method, int firstNumber, int secondNumber)
+        private static int GCDCount(out int milliseconds, Func<int, int, int> method, int firstNumber, int secondNumber)
         {
             if (firstNumber == int.MinValue || secondNumber == int.MinValue)
             {
@@ -158,7 +156,7 @@ namespace GCD
         /// <param name="secondNumber">The second number.</param>
         /// <param name="thirdNumber">The third number.</param>
         /// <returns>The gcd.</returns>
-        private static int GCDCount(out int milliseconds, GCDDelegate method, int firstNumber, int secondNumber, int thirdNumber)
+        private static int GCDCount(out int milliseconds, Func<int, int, int> method, int firstNumber, int secondNumber, int thirdNumber)
         {
             if (firstNumber == int.MinValue || secondNumber == int.MinValue || thirdNumber == int.MinValue)
             {
