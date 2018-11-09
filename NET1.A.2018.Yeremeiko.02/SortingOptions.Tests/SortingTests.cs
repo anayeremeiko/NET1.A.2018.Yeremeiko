@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SortingOptions.Tests
@@ -12,7 +13,7 @@ namespace SortingOptions.Tests
             int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             int[] sortedArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-            Sorting.QuickSort(array);
+            Sorting<int>.QuickSort(array);
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -23,7 +24,7 @@ namespace SortingOptions.Tests
             int[] array = { 10 };
             int[] sortedArray = { 10 };
 
-            Sorting.QuickSort(array);
+            Sorting<int>.QuickSort(array);
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -34,7 +35,7 @@ namespace SortingOptions.Tests
             int[] array = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
             int[] sortedArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-            Sorting.QuickSort(array);
+            Sorting<int>.QuickSort(array);
             
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -45,7 +46,7 @@ namespace SortingOptions.Tests
             int[] array = { -1, -2, -3, -4, -5, -6, -7, -8, -9, -10 };
             int[] sortedArray = { -10, -9, -8, -7, -6, -5, -4, -3, -2, -1 };
 
-            Sorting.QuickSort(array);
+            Sorting<int>.QuickSort(array);
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -59,7 +60,7 @@ namespace SortingOptions.Tests
             Array.Copy(array, sortedArray, array.Length);
             Array.Sort(sortedArray);
 
-            Sorting.QuickSort(array);
+            Sorting<int>.QuickSort(array);
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -69,7 +70,7 @@ namespace SortingOptions.Tests
         {
             int[] array = null;
 
-            Assert.ThrowsException<ArgumentNullException>(() => Sorting.QuickSort(array));
+            Assert.ThrowsException<ArgumentNullException>(() => Sorting<int>.QuickSort(array));
         }
 
         [TestMethod]
@@ -77,7 +78,7 @@ namespace SortingOptions.Tests
         {
             int[] array = { };
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Sorting.QuickSort(array));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Sorting<int>.QuickSort(array));
         }
 
         [TestMethod]
@@ -87,7 +88,7 @@ namespace SortingOptions.Tests
             int[] array = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
             int[] sortedArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-            Sorting.MergeSort(array);
+            Sorting<int>.MergeSort(array);
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -98,7 +99,7 @@ namespace SortingOptions.Tests
             int[] array = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
             int[] sortedArray = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-            Sorting.MergeSort(array);
+            Sorting<int>.MergeSort(array);
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -109,7 +110,7 @@ namespace SortingOptions.Tests
             int[] array = { -1, -2, -3, -4, -5, -6, -7, -8, -9, -10 };
             int[] sortedArray = { -10, -9, -8, -7, -6, -5, -4, -3, -2, -1 };
 
-            Sorting.MergeSort(array);
+            Sorting<int>.MergeSort(array);
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -120,7 +121,7 @@ namespace SortingOptions.Tests
             int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             int[] sortedArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-            Sorting.MergeSort(array);
+            Sorting<int>.MergeSort(array);
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -131,7 +132,7 @@ namespace SortingOptions.Tests
             int[] array = { 10 };
             int[] sortedArray = { 10 };
 
-            Sorting.MergeSort(array);
+            Sorting<int>.MergeSort(array);
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -145,7 +146,7 @@ namespace SortingOptions.Tests
             Array.Copy(array, sortedArray, array.Length);
             Array.Sort(sortedArray);
 
-            Sorting.MergeSort(array);
+            Sorting<int>.MergeSort(array);
 
             CollectionAssert.AreEqual(sortedArray, array);
         }
@@ -155,7 +156,7 @@ namespace SortingOptions.Tests
         {
             int[] array = null;
 
-            Assert.ThrowsException<ArgumentNullException>(() => Sorting.MergeSort(array));
+            Assert.ThrowsException<ArgumentNullException>(() => Sorting<int>.MergeSort(array));
         }
 
         [TestMethod]
@@ -163,7 +164,7 @@ namespace SortingOptions.Tests
         {
             int[] array = { };
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Sorting.MergeSort(array));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Sorting<int>.MergeSort(array));
         }
 
         private static int[] GenerateRandomArray(int size)

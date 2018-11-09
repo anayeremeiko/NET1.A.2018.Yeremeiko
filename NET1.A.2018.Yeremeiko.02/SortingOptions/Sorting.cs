@@ -9,7 +9,7 @@ namespace SortingOptions
     /// <summary>
     /// Sorting the specified array with quick or merge sort method.
     /// </summary>
-    public static class Sorting
+    public static class Sorting<T> where T : IComparable<T>
     {
         /// <summary>
         /// Sorts the specified array using quick sort method.
@@ -17,7 +17,7 @@ namespace SortingOptions
         /// <param name="array">The array.</param>
         /// <exception cref="System.ArgumentNullException">Need not null array</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Need non negative boundaries</exception>
-        public static void QuickSort(int[] array)
+        public static void QuickSort(T[] array)
         {
             CheckArrayNullReference(array);
             QuickSort(array, 0, array.Length - 1);
@@ -31,7 +31,7 @@ namespace SortingOptions
         /// <param name="right">The right boundary.</param>
         /// <exception cref="System.ArgumentNullException">Need not null array</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Need non negative boundaries</exception>
-        public static void QuickSort(int[] array, int left, int right)
+        public static void QuickSort(T[] array, int left, int right)
         {
             CheckArrayNullReference(array);
             if (left < 0 || right < 0)
@@ -55,7 +55,7 @@ namespace SortingOptions
         /// <param name="array">The array.</param>
         /// <exception cref="System.ArgumentNullException">Need not null array</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Need non negative boundaries</exception>
-        public static void MergeSort(int[] array)
+        public static void MergeSort(T[] array)
         {
             CheckArrayNullReference(array);
             MergeSort(array, 0, array.Length - 1);
@@ -69,7 +69,7 @@ namespace SortingOptions
         /// <param name="right">The right boundary.</param>
         /// <exception cref="System.ArgumentNullException">Need not null array</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Need non negative boundaries</exception>
-        public static void MergeSort(int[] array, int left, int right)
+        public static void MergeSort(T[] array, int left, int right)
         {
             CheckArrayNullReference(array);
             if (left < 0 || right < 0)
@@ -95,12 +95,12 @@ namespace SortingOptions
         /// <param name="left">Index of first element.</param>
         /// <param name="middle">Index of middle element.</param>
         /// <param name="right">Index of last element.</param>
-        private static void Merge(int[] array, int left, int middle, int right)
+        private static void Merge(T[] array, int left, int middle, int right)
         {
             int lengthOfLeft = middle - left + 1;
             int lengthOfRight = right - middle;
-            int[] leftArray = new int[lengthOfLeft];
-            int[] rightArray = new int[lengthOfRight];
+            T[] leftArray = new T[lengthOfLeft];
+            T[] rightArray = new T[lengthOfRight];
 
             for (int a = 0; a < lengthOfLeft; a++)
             {
@@ -116,7 +116,7 @@ namespace SortingOptions
 
             while (i < lengthOfLeft && j < lengthOfRight)
             {
-                if (leftArray[i] <= rightArray[j])
+                if (leftArray[i].CompareTo(rightArray[j]) != 1)
                 {
                     array[n] = leftArray[i];
                     i++;
@@ -155,7 +155,7 @@ namespace SortingOptions
         /// <param name="left">The left boundary.</param>
         /// <param name="right">The right boundary.</param>
         /// <returns>The index of pivot element in the specified array.</returns>
-        private static int Partition(int[] array, int left, int right)
+        private static int Partition(T[] array, int left, int right)
         {
             int pivot = left;
 
@@ -177,9 +177,9 @@ namespace SortingOptions
         /// <param name="array">The array</param>
         /// <param name="i">Index of first array element</param>
         /// <param name="j">Index of second array element</param>
-        private static void SwapArrayElements(int[] array, int i, int j)
+        private static void SwapArrayElements(T[] array, int i, int j)
         {
-            int temp = array[i];
+            T temp = array[i];
             array[i] = array[j];
             array[j] = temp;
         }
@@ -189,7 +189,7 @@ namespace SortingOptions
         /// </summary>
         /// <param name="array">The array.</param>
         /// <exception cref="ArgumentNullException">Need not empty array.</exception>
-        private static void CheckArrayNullReference(int[] array)
+        private static void CheckArrayNullReference(T[] array)
         {
             if (array == null)
             {
