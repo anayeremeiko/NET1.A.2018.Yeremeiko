@@ -3,6 +3,10 @@
 
 ## Tasks
 
+* [Бинарный поиск](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.02/SortingOptions/Search.cs)
+
+* [Числа Фибоначчи](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.14/Fibonacci/FibonacciGenerator.cs)
+
 * [Метеостанция на основе интерфейсов](https://github.com/anayeremeiko/ObserverPatternDemo-1/tree/master/ObserverPatternDemo)
 
 * [Метеостанция на основе механизма событий](https://github.com/anayeremeiko/ObserverPatternDemo/tree/master/ObserverPatternDemo/Implemantation)
