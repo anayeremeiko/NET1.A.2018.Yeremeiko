@@ -20,7 +20,7 @@ namespace DoubleArrayExtension
         /// <param name="array">The array.</param>
         /// <returns>Transformed array.</returns>
         /// <exception cref="ArgumentNullException">Array need to be not null.</exception>
-        public static string[] TransformDoubleArray(ITransformer transformer, params double[] array)
+        public static string[] TransformDoubleArray(ITransformer<double, string> transformer, params double[] array)
         {
             if (array == null || array.Length == 0)
             {

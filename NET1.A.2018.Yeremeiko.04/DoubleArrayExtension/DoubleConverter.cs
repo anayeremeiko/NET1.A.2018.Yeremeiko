@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DoubleArrayExtension
 {
-    public class DoubleConverter : ITransformer
+    public class DoubleConverter : ITransformer<double, string>
     {
         /// <summary>
         /// Converts double to words.

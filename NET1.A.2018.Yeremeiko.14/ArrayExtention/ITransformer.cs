@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoubleArrayExtension
+namespace ArrayExtension
 {
     public interface ITransformer<in TInput, out TResult>
     {

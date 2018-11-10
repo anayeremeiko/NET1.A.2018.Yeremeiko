@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoubleArrayExtension
+namespace ArrayExtension
 {
-    public interface ITransformer<in TInput, out TResult>
+    public interface IFilter<in TSource>
     {
         /// <summary>
-        /// Transforms the specified source.
+        /// Filters the source.
         /// </summary>
         /// <param name="source">The source.</param>
-        /// <returns>Transformed source.</returns>
-        TResult Transform(TInput source);
+        /// <returns>The filtered source.</returns>
+        bool FilterSource(TSource source);
     }
 }

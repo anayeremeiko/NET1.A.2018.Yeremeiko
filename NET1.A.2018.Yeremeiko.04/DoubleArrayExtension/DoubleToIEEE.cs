@@ -2,7 +2,7 @@
 
 namespace DoubleArrayExtension
 {
-    public class DoubleToIEEE : ITransformer
+    public class DoubleToIEEE : ITransformer<double, string>
     {
         /// <summary>
         /// Transforms double number to IEEE format.
