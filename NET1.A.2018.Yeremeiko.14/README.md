@@ -32,3 +32,6 @@
 
 ### What is done
 
+* [Фильтры](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/tree/master/NET1.A.2018.Yeremeiko.14/ArrayExtention)
+
+* [Тесты](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/tree/master/NET1.A.2018.Yeremeiko.14/ArrayExtension.Tests)
