@@ -3,6 +3,10 @@
 
 ## Tasks
 
+* [Очередь](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.15/Collections/Queue.cs)
+
+* [Фильтры массива](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/tree/master/NET1.A.2018.Yeremeiko.14/ArrayExtention)
+
 * [Бинарный поиск](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.02/SortingOptions/Search.cs)
 
 * [Числа Фибоначчи](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.14/Fibonacci/FibonacciGenerator.cs)
