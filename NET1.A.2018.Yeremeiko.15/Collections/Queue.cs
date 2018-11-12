@@ -41,8 +41,14 @@ namespace Collections
         /// Initializes a new instance of the <see cref="Queue{T}"/> class.
         /// </summary>
         /// <param name="data">The data.</param>
+        /// <exception cref="ArgumentNullException">Data need to be not null.</exception>
         public Queue(ICollection<T> data)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException($"{nameof(data)} need to be not null.");
+            }
+
             _queue = new T[data.Count];
             foreach (T element in data)
             {
@@ -51,31 +57,34 @@ namespace Collections
         }
 
         /// <summary>
-        /// The length of queue.
+        /// Gets the number of element contained in Queue.
         /// </summary>
         /// <value>
-        /// The length.
+        /// The number of elements is Queue.
         /// </value>
-        public int Length { get; private set; }
+        public int Count { get; private set; }
+
+        private int Version { get; set; }
 
         /// <summary>
-        /// Enqueues the specified element.
+        /// Adds an object to the end of the Queue.
         /// </summary>
         /// <param name="element">The element.</param>
         public void Enqueue(T element)
         {
-            if (Length == _queue.Length)
+            if (Count == _queue.Length)
             {
-                SetCapacity(_queue.Length * 2);
+                Array.Resize(ref _queue, _queue.Length * 2);
             }
 
             _queue[_end++] = element;
-            Length++;
+            Count++;
             _end %= _queue.Length;
+            Version++;
         }
 
         /// <summary>
-        /// Returns the peek without deleting it.
+        /// Returns the object at the beginning of the Queue without removing it.
         /// </summary>
         /// <returns>The peek without deleting it.</returns>
         /// <exception cref="InvalidOperationException">Queue is empty.</exception>
@@ -90,7 +99,7 @@ namespace Collections
         }
 
         /// <summary>
-        /// Dequeues this instance.
+        /// Removes and returns the object at the beginning of the Queue.
         /// </summary>
         /// <returns>The peek.</returns>
         /// <exception cref="InvalidOperationException">Queue is empty.</exception>
@@ -102,9 +111,10 @@ namespace Collections
             }
 
             T result = _queue[_start];
-            Length--;
+            Count--;
             _queue[_start++] = default(T);
             _start %= _queue.Length;
+            Version++;
             return result;
         }
 
@@ -114,33 +124,7 @@ namespace Collections
         /// <value>
         ///   <c>true</c> if this instance is empty; otherwise, <c>false</c>.
         /// </value>
-        public bool IsEmpty => Length == 0;
-
-        /// <summary>
-        /// Converts to size.
-        /// </summary>
-        public void TrimToSize()
-        {
-            T[] newQueue = new T[Length];
-            Array.Copy(_queue, _start, newQueue, 0, Length);
-            _queue = newQueue;
-            _start = 0;
-            _end = Length;
-        }
-        
-        private void SetCapacity(int capacity)
-        {
-            T[] newQueue = new T[capacity];
-            if (Length > 0)
-            {
-                Array.Copy(_queue, _start, newQueue, 0, _queue.Length - _start);
-                Array.Copy(_queue, 0, newQueue, _queue.Length - _start, _end);
-            }
-
-            _queue = newQueue;
-            _start = 0;
-            _end = Length;
-        }
+        public bool IsEmpty => Count == 0;
 
         /// <summary>
         /// Returns an enumerator that iterates through a collection.
@@ -148,7 +132,9 @@ namespace Collections
         /// <returns>
         /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
         /// </returns>
-        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_queue).GetEnumerator();
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => new Enumerator((Queue<T>)this);
+
+        public Enumerator GetEnumerator() => new Enumerator((Queue<T>)this);
 
         /// <summary>
         /// Returns an enumerator that iterates through the collection.
@@ -156,6 +142,118 @@ namespace Collections
         /// <returns>
         /// An enumerator that can be used to iterate through the collection.
         /// </returns>
-        public IEnumerator<T> GetEnumerator() => ((IEnumerable<T>)_queue).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => new Enumerator((Queue<T>)this);
+
+
+        /// <summary>
+        /// Sets the capacity of Queue to it's actual number, if the capacity is less then 90 percent of actual size.
+        /// </summary>
+        public void TrimExcess()
+        {
+            if (_queue.Length * 0.1 <= Count)
+            {
+                return;
+            }
+
+            T[] newQueue = new T[Count];
+            Array.Copy(_queue, _start, newQueue, 0, Count);
+            _queue = newQueue;
+            _start = 0;
+            _end = Count;
+        }
+
+        /// <summary>
+        /// Copies the Queue elements to new array.
+        /// </summary>
+        /// <returns>Array.</returns>
+        public T[] ToArray()
+        {
+            T[] array = new T[Count];
+            int k = 0;
+            for (int i = _start; i <= _end; i++)
+            {
+                array[k] = _queue[i];
+            }
+
+            return array;
+        }
+
+        /// <summary>
+        /// Copies elements of Queue in specified array from index.
+        /// </summary>
+        /// <param name="array">Target array.</param>
+        /// <param name="startIndex">The index.</param>
+        public void CopyTo(T[] array, int startIndex)
+        {
+            for (int i = _start; i <= _end; i++)
+            {
+                array[startIndex++] = _queue[i];
+            }
+        }
+
+        public struct Enumerator : IEnumerator<T>
+        {
+            private readonly Queue<T> _queue;
+            private readonly int _version;
+            private int _index;
+            private T _currentElement;
+
+            public Enumerator(Queue<T> queue)
+            {
+                _queue = queue;
+                _version = queue.Version;
+                _index = _queue._start;
+                _currentElement = default(T);
+            }
+
+            public T Current
+            {
+                get
+                {
+                    if (_version != _queue.Version || (_index == (_queue._end + 1)))
+                    {
+                        throw new InvalidOperationException("Queue was modified!");
+                    }
+
+                    return _currentElement;
+                }
+            }
+
+
+            object IEnumerator.Current => Current;
+
+            public void Dispose()
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool MoveNext()
+            {
+                if (_version != _queue.Version)
+                {
+                    throw new InvalidOperationException("Queue was modified!");
+                }
+
+                if (_index < _queue._end)
+                {
+                    _currentElement = _queue._queue[_index];
+                    _index++;
+                    return true;
+                }
+
+                return false;
+            }
+
+            public void Reset()
+            {
+                if (_version != _queue.Version)
+                {
+                    throw new InvalidOperationException("Queue was modified!");
+                }
+                _index = 0;
+                _currentElement = default(T);
+
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace ArrayExtension
         /// <param name="transformer">The transformer.</param>
         /// <returns>Transformed numbers.</returns>
         /// <exception cref="System.ArgumentNullException">Transformer and numbers need to be not null.</exception>
-        public static TResult[] TransformTo<TInput, TResult>(this TInput[] numbers, ITransformer<TInput, TResult> transformer)
+        public static IEnumerable<TResult> TransformTo<TInput, TResult>(this TInput[] numbers, ITransformer<TInput, TResult> transformer)
         {
             InputValidation(numbers);
             if (transformer == null)
@@ -38,7 +38,7 @@ namespace ArrayExtension
         /// <param name="transformer">The transformer.</param>
         /// <returns>Transformed numbers.</returns>
         /// <exception cref="System.ArgumentNullException">Transformer and numbers need to be not null.</exception>
-        public static TResult[] TransformTo<TInput, TResult>(this TInput[] numbers, Func<TInput, TResult> transformer)
+        public static IEnumerable<TResult> TransformTo<TInput, TResult>(this TInput[] numbers, Func<TInput, TResult> transformer)
         {
             InputValidation(numbers);
             if (transformer == null)
@@ -63,7 +63,7 @@ namespace ArrayExtension
         /// <param name="filter">The filter.</param>
         /// <returns>Filtered source.</returns>
         /// <exception cref="System.ArgumentNullException">Source or filter need to be not null.</exception>
-        public static TSource[] Filter<TSource>(this TSource[] source, IFilter<TSource> filter)
+        public static IEnumerable<TSource> Filter<TSource>(this TSource[] source, IFilter<TSource> filter)
         {
             InputValidation(source);
             if (filter == null)
@@ -82,7 +82,7 @@ namespace ArrayExtension
         /// <param name="filter">The filter.</param>
         /// <returns>Filtered source.</returns>
         /// <exception cref="System.ArgumentNullException">Source or filter need to be not null.</exception>
-        public static TSource[] Filter<TSource>(this TSource[] source, Predicate<TSource> filter)
+        public static IEnumerable<TSource> Filter<TSource>(this TSource[] source, Predicate<TSource> filter)
         {
             InputValidation(source);
             if (filter == null)

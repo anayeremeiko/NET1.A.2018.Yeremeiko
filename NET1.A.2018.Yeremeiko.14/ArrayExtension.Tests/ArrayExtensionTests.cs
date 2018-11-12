@@ -12,14 +12,14 @@ namespace ArrayExtension.Tests
     {
         [TestCase(new[] { "hi", "two", "cup", "c#", "epam", "not" }, 3, ExpectedResult = new[] { "two", "cup", "not" })]
         [TestCase(new[] { "pollution", "never", "wood", "UI", "1234" }, 4, ExpectedResult = new[] { "wood", "1234" })]
-        public string[] Filter_Strings(string[] array, int length)
+        public IEnumerable<string> Filter_Strings(string[] array, int length)
         {
             return array.Filter(new StringFilter(length).FilterSource);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, int.MaxValue }, ExpectedResult = new[] { 2, 4, 6, 8 })]
         [TestCase(new[] { -1, -2, -3 }, ExpectedResult = new[] { -2 })]
-        public int[] Filter_Int(int[] array)
+        public IEnumerable<int> Filter_Int(int[] array)
         {
             return array.Filter(new IntFilter());
         }
