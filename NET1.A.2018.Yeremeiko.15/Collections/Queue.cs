@@ -26,8 +26,9 @@ namespace Collections
             }
 
             _queue = new T[size];
-            _start = size - 1;
-            _end = size - 1;
+            _start = 0;
+            _end = 0;
+            Count = 0;
         }
 
         /// <summary>
@@ -50,6 +51,7 @@ namespace Collections
             }
 
             _queue = new T[data.Count];
+            Count = _queue.Length;
             foreach (T element in data)
             {
                 Enqueue(element);
@@ -63,6 +65,14 @@ namespace Collections
         /// The number of elements is Queue.
         /// </value>
         public int Count { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is empty.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is empty; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsEmpty => Count == 0;
 
         private int Version { get; set; }
 
@@ -79,7 +89,6 @@ namespace Collections
 
             _queue[_end++] = element;
             Count++;
-            _end %= _queue.Length;
             Version++;
         }
 
@@ -119,14 +128,6 @@ namespace Collections
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is empty.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is empty; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsEmpty => Count == 0;
-
-        /// <summary>
         /// Returns an enumerator that iterates through a collection.
         /// </summary>
         /// <returns>
@@ -134,6 +135,10 @@ namespace Collections
         /// </returns>
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => new Enumerator((Queue<T>)this);
 
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection
+        /// </summary>
+        /// <returns>An object that can be used to iterate through the collection.</returns>
         public Enumerator GetEnumerator() => new Enumerator((Queue<T>)this);
 
         /// <summary>
@@ -143,7 +148,6 @@ namespace Collections
         /// An enumerator that can be used to iterate through the collection.
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator() => new Enumerator((Queue<T>)this);
-
 
         /// <summary>
         /// Sets the capacity of Queue to it's actual number, if the capacity is less then 90 percent of actual size.
@@ -170,9 +174,9 @@ namespace Collections
         {
             T[] array = new T[Count];
             int k = 0;
-            for (int i = _start; i <= _end; i++)
+            for (int i = _start; i < _end; i++)
             {
-                array[k] = _queue[i];
+                array[k++] = _queue[i];
             }
 
             return array;
@@ -191,6 +195,33 @@ namespace Collections
             }
         }
 
+        /// <summary>
+        /// Checks if item contains in the Queue.
+        /// </summary>
+        /// <param name="item">An item.</param>
+        /// <returns>True if contains, false otherwise.</returns>
+        public bool Contains(T item)
+        {
+            EqualityComparer<T> comparer = EqualityComparer<T>.Default;
+
+            for (int i = _start; i < _end; i++)
+            {
+                if (item == null)
+                {
+                    if (_queue[i] == null)
+                    {
+                        return true;
+                    }
+                }
+                else if (_queue[i] != null && comparer.Equals(_queue[i], item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public struct Enumerator : IEnumerator<T>
         {
             private readonly Queue<T> _queue;
@@ -206,6 +237,9 @@ namespace Collections
                 _currentElement = default(T);
             }
 
+            /// <summary>
+            /// Current item.
+            /// </summary>
             public T Current
             {
                 get
@@ -219,14 +253,26 @@ namespace Collections
                 }
             }
 
-
+            /// <summary>
+            /// The current object.
+            /// </summary>
             object IEnumerator.Current => Current;
 
+            /// <summary>
+            /// Disposes the Enumerator.
+            /// </summary>
             public void Dispose()
             {
-                throw new NotImplementedException();
+                if (_version != _queue.Version)
+                {
+                    throw new InvalidOperationException("Queue was modified!");
+                }
             }
 
+            /// <summary>
+            /// Checks if collection contains next element.
+            /// </summary>
+            /// <returns>True if next item exists, false otherwise.</returns>
             public bool MoveNext()
             {
                 if (_version != _queue.Version)
@@ -244,15 +290,18 @@ namespace Collections
                 return false;
             }
 
+            /// <summary>
+            /// Resets the enumerator.
+            /// </summary>
             public void Reset()
             {
                 if (_version != _queue.Version)
                 {
                     throw new InvalidOperationException("Queue was modified!");
                 }
+
                 _index = 0;
                 _currentElement = default(T);
-
             }
         }
     }
