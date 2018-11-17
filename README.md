@@ -3,6 +3,8 @@
 
 ## Tasks
 
+* [Бинарное дерево](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.16/Collections/BinarySearchTree.cs)
+
 * [Очередь](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.15/Collections/Queue.cs)
 
 * [Фильтры массива](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/tree/master/NET1.A.2018.Yeremeiko.14/ArrayExtention)
