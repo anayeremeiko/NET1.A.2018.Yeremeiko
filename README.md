@@ -3,6 +3,8 @@
 
 ## Tasks
 
+* [Файловые потоки](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/M13.Streams.Task/StreamsDemo/StreamsExtension.cs)
+
 * [Бинарное дерево](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.16/Collections/BinarySearchTree.cs)
 
 * [Очередь](https://github.com/anayeremeiko/NET1.A.2018.Yeremeiko/blob/master/NET1.A.2018.Yeremeiko.15/Collections/Queue.cs)
