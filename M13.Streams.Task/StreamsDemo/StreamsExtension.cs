@@ -52,16 +52,17 @@ namespace StreamsDemo
         /// <param name="sourcePath">Source file.</param>
         /// <param name="destinationPath">Destination file.</param>
         /// <returns>Number of copied bytes.</returns>
-        /// <exception cref="ArgumentException">Source and destination pathes need to be not empty.</exception>
+        /// <exception cref="ArgumentException">Source and destination paths need to be not empty.</exception>
         /// <exception cref="FileNotFoundException">File at source or destination path not found.</exception>
         public static int InMemoryByByteCopy(string sourcePath, string destinationPath)
         {
             InputValidation(sourcePath, destinationPath);
-            using (StreamReader sr = new StreamReader(sourcePath, Encoding.Default))
-            using (StreamWriter sw = new StreamWriter(destinationPath, false, Encoding.Default))
+            using (StreamReader sr = new StreamReader(sourcePath, Encoding.UTF8))
+            using (StreamWriter sw = new StreamWriter(destinationPath, false, Encoding.UTF8))
             {
                 string text = sr.ReadToEnd();
-                byte[] array = Encoding.Default.GetBytes(text);
+                byte[] array = Encoding.UTF8.GetBytes(text);
+                byte[] bom = Encoding.UTF8.GetPreamble();
                 using (var memStream = new MemoryStream(array))
                 {
                     byte[] byteArray = new byte[array.Length];
@@ -72,9 +73,11 @@ namespace StreamsDemo
                         byteArray[count++] = (byte)memStream.ReadByte();
                     }
 
-                    char[] charArray = Encoding.Default.GetChars(byteArray);
+                    char[] bomChar = Encoding.UTF8.GetChars(bom);
+                    char[] charArray = Encoding.UTF8.GetChars(byteArray);
+                    sw.Write(bomChar);
                     sw.Write(charArray);
-                    return count;
+                    return Encoding.UTF8.GetByteCount(charArray) + Encoding.UTF8.GetByteCount(bomChar);
                 }
             }
         }
@@ -119,22 +122,26 @@ namespace StreamsDemo
         /// <param name="sourcePath">Source file.</param>
         /// <param name="destinationPath">Destination file.</param>
         /// <returns>Number of copied bytes.</returns>
-        /// <exception cref="ArgumentException">Source and destination pathes need to be not empty.</exception>
+        /// <exception cref="ArgumentException">Source and destination paths need to be not empty.</exception>
         /// <exception cref="FileNotFoundException">File at source or destination path not found.</exception>
         public static int InMemoryByBlockCopy(string sourcePath, string destinationPath)
         {
             InputValidation(sourcePath, destinationPath);
-            using (StreamReader sr = new StreamReader(sourcePath, Encoding.Default))
-            using (StreamWriter sw = new StreamWriter(destinationPath, false, Encoding.Default))
+            using (StreamReader sr = new StreamReader(sourcePath, UTF8Encoding.Default))
+            using (StreamWriter sw = new StreamWriter(destinationPath, false, UTF8Encoding.Default))
             {
                 string text = sr.ReadToEnd();
-                byte[] array = Encoding.Default.GetBytes(text);
+                byte[] array = Encoding.UTF8.GetBytes(text);
+                byte[] bom = Encoding.UTF8.GetPreamble();
+                
                 using (var memStream = new MemoryStream(array, 0, array.Length))
                 {
                     byte[] readBytes = memStream.ToArray();
-                    char[] charArray = Encoding.Default.GetChars(readBytes);
+                    char[] bomChar = Encoding.UTF8.GetChars(bom);
+                    char[] charArray = Encoding.UTF8.GetChars(readBytes);
+                    sw.Write(bomChar);
                     sw.Write(charArray);
-                    return readBytes.Length;
+                    return Encoding.UTF8.GetByteCount(charArray) + Encoding.UTF8.GetByteCount(bomChar);
                 }
             }
         }
@@ -213,7 +220,7 @@ namespace StreamsDemo
         /// <param name="sourcePath">First file.</param>
         /// <param name="destinationPath">Second file.</param>
         /// <returns>True if equal, false otherwise.</returns>
-        /// <exception cref="ArgumentException">Source and destination pathes need to be not empty.</exception>
+        /// <exception cref="ArgumentException">Source and destination paths need to be not empty.</exception>
         /// <exception cref="FileNotFoundException">File at source or destination path not found.</exception>
         public static bool IsContentEquals(string sourcePath, string destinationPath)
         {
@@ -223,8 +230,8 @@ namespace StreamsDemo
                 return true;
             }
 
-            using (StreamReader firstFile = new StreamReader(sourcePath, Encoding.Default))
-            using (StreamReader secondFile = new StreamReader(destinationPath, Encoding.Default))
+            using (var firstFile = new StreamReader(sourcePath, Encoding.UTF8))
+            using (var secondFile = new StreamReader(destinationPath, Encoding.UTF8))
             {
                 string line;
                 while ((line = firstFile.ReadLine()) != null)
