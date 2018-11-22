@@ -12,6 +12,7 @@ namespace Collections
         private T[] _queue;
         private int _start;
         private int _end;
+        private int version;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Queue{T}"/> class.
@@ -74,8 +75,6 @@ namespace Collections
         /// </value>
         public bool IsEmpty => Count == 0;
 
-        private int Version { get; set; }
-
         /// <summary>
         /// Adds an object to the end of the Queue.
         /// </summary>
@@ -89,7 +88,7 @@ namespace Collections
 
             _queue[_end++] = element;
             Count++;
-            Version++;
+            version++;
         }
 
         /// <summary>
@@ -123,7 +122,7 @@ namespace Collections
             Count--;
             _queue[_start++] = default(T);
             _start %= _queue.Length;
-            Version++;
+            version++;
             return result;
         }
 
@@ -232,7 +231,7 @@ namespace Collections
             public Enumerator(Queue<T> queue)
             {
                 _queue = queue;
-                _version = queue.Version;
+                _version = queue.version;
                 _index = _queue._start;
                 _currentElement = default(T);
             }
@@ -244,7 +243,7 @@ namespace Collections
             {
                 get
                 {
-                    if (_version != _queue.Version || (_index == (_queue._end + 1)))
+                    if (_version != _queue.version || (_index == (_queue._end + 1)))
                     {
                         throw new InvalidOperationException("Queue was modified!");
                     }
@@ -263,7 +262,7 @@ namespace Collections
             /// </summary>
             public void Dispose()
             {
-                if (_version != _queue.Version)
+                if (_version != _queue.version)
                 {
                     throw new InvalidOperationException("Queue was modified!");
                 }
@@ -275,7 +274,7 @@ namespace Collections
             /// <returns>True if next item exists, false otherwise.</returns>
             public bool MoveNext()
             {
-                if (_version != _queue.Version)
+                if (_version != _queue.version)
                 {
                     throw new InvalidOperationException("Queue was modified!");
                 }
@@ -295,7 +294,7 @@ namespace Collections
             /// </summary>
             public void Reset()
             {
-                if (_version != _queue.Version)
+                if (_version != _queue.version)
                 {
                     throw new InvalidOperationException("Queue was modified!");
                 }

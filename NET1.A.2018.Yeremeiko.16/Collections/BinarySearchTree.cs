@@ -12,6 +12,7 @@ namespace Collections
     {
         private Node root;
         private IComparer<T> comparer;
+        private int version;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BinarySearchTree{T}"/> class.
@@ -25,6 +26,7 @@ namespace Collections
             }
 
             root = null;
+            version = 0;
             comparer = Comparer<T>.Default;
         }
 
@@ -36,6 +38,7 @@ namespace Collections
         public BinarySearchTree(IComparer<T> comparer)
         {
             root = null;
+            version = 0;
             this.comparer = comparer ?? throw new ArgumentNullException($"{nameof(comparer)} need to be not null.");
         }
 
@@ -147,6 +150,7 @@ namespace Collections
             {
                 if (current.Left == null)
                 {
+                    version++;
                     current.Left = new Node() { Item = item };
                 }
                 else
@@ -159,6 +163,7 @@ namespace Collections
             {
                 if (current.Right == null)
                 {
+                    version++;
                     current.Right = new Node() { Item = item };
                 }
                 else
