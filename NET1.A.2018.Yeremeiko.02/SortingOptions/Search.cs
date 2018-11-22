@@ -23,7 +23,27 @@ namespace SortingOptions
                 throw new ArgumentNullException($"{nameof(comparer)} ned to be not null.");
             }
 
-            return BinarySearch(array, element, comparer.Compare);
+            return BinarySearch(array, element, 0, array.Length, comparer.Compare);
+        }
+
+        /// <summary>
+        /// Binary search.
+        /// </summary>
+        /// <param name="array">The array.</param>
+        /// <param name="element">The target element.</param>
+        /// <param name="comparer">The comparer.</param>
+        /// <param name="start">Start point.</param>
+        /// <param name="end">End point.</param>
+        /// <returns>The index of target element if exists.</returns>
+        /// <exception cref="ArgumentNullException">Comparer need to be not null.</exception>
+        public static int? BinarySearch(T[] array, T element, int start, int end, IComparer<T> comparer)
+        {
+            if (comparer == null)
+            {
+                throw new ArgumentNullException($"{nameof(comparer)} ned to be not null.");
+            }
+
+            return BinarySearch(array, element, start, end, comparer.Compare);
         }
 
         /// <summary>
@@ -37,6 +57,22 @@ namespace SortingOptions
         /// <exception cref="ArgumentOutOfRangeException">Element out of range.</exception>
         public static int? BinarySearch(T[] array, T element, Comparison<T> comparer)
         {
+            return BinarySearch(array, element, 0, array.Length, comparer);
+        }
+
+        /// <summary>
+        /// Binary search.
+        /// </summary>
+        /// <param name="array">The array.</param>
+        /// <param name="element">The target element.</param>
+        /// <param name="comparer">The comparer.</param>
+        /// <param name="start">Start point.</param>
+        /// <param name="end">End point.</param>
+        /// <returns>The index of target element if exists.</returns>
+        /// <exception cref="ArgumentNullException">Array need to be not null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Element out of range.</exception>
+        public static int? BinarySearch(T[] array, T element, int start, int end, Comparison<T> comparer)
+        {
             if (array == null || array.Length == 0)
             {
                 throw new ArgumentNullException($"{nameof(array)} need to be not null.");
@@ -46,13 +82,16 @@ namespace SortingOptions
             {
                 throw new ArgumentOutOfRangeException($"{nameof(element)} out of range.");
             }
-            
-            int first = 0;
-            int last = array.Length;
-            int middle;
-            while (first < last)
+
+            if (end < start)
             {
-                middle = first + (last - first) / 2;
+                throw new InvalidOperationException($"{nameof(start)} need to be less then {nameof(end)}.");
+            }
+            
+            int middle;
+            while (start < end)
+            {
+                middle = start + (end - start) / 2;
                 if (comparer(element, array[middle]) == 0)
                 {
                     return middle;
@@ -60,11 +99,11 @@ namespace SortingOptions
 
                 if (comparer(element, array[middle]) <= 0)
                 {
-                    last = middle;
+                    end = middle;
                 }
                 else
                 {
-                    first = middle + 1;
+                    start = middle + 1;
                 }
             }
 
